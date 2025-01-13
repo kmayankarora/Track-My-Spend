@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".AllTransactionCategoryWise">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbarId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/window_appbar_bg_color"
+        android:gravity="center_vertical"
+        app:layout_scrollFlags="scroll|enterAlways|snap"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbarId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:elevation="0dp"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            app:title="Category"
+            app:titleCentered="true"
+            app:titleTextAppearance="@style/CustomToolbarTitle"
+            app:titleTextColor="@color/title_font_color" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <TextView
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/appbarId"
+        android:layout_marginBottom="4dp"
+        android:id="@+id/currentPeriodValueId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Current Period"
+        android:gravity="center"
+        android:fontFamily="@font/quicksand_medium"
+        android:textSize="16sp"
+        android:letterSpacing="0.1" />
+
+    <ProgressBar
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginVertical="8dp"
+        android:id="@+id/spendTitleValueProgressbarId"
+        android:layout_width="0dp"
+        app:layout_constraintHorizontal_weight="4"
+        android:layout_height="4dp"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:progressDrawable="@drawable/custom_progress_bar"
+        android:indeterminate="false"
+        android:max="100"
+        android:progress="95"
+        android:visibility="visible"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/currentPeriodValueId" />
+
+    <TextView
+        android:id="@+id/monthlyAmountLimitId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/spendTitleValueProgressbarId"
+        app:layout_constraintRight_toRightOf="@id/spendTitleValueProgressbarId"
+        android:gravity="center"
+        android:textSize="14sp"
+        android:fontFamily="@font/quicksand_medium"
+        android:letterSpacing="0.1"
+        android:textColor="@color/normal_text_color"
+        android:paddingHorizontal="2dp"/>
+    <TextView
+        android:id="@+id/slashTextViewId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/spendTitleValueProgressbarId"
+        app:layout_constraintRight_toLeftOf="@id/monthlyAmountLimitId"
+        android:gravity="center"
+        android:text="/"
+        android:fontFamily="@font/quicksand_medium"
+        android:letterSpacing="0.1"
+        android:textSize="14sp"
+        android:paddingHorizontal="4dp"
+        android:textColor="@color/normal_text_color" />
+    <TextView
+        android:id="@+id/categoryAmountTextView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/spendTitleValueProgressbarId"
+        app:layout_constraintRight_toLeftOf="@id/slashTextViewId"
+        android:gravity="center"
+        android:textSize="14sp"
+        android:fontFamily="@font/quicksand_medium"
+        android:letterSpacing="0.1"
+        android:textColor="@color/normal_text_color"
+        android:paddingHorizontal="2dp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewId"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/slashTextViewId"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/messageId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No Saved Record\n\n\n Click on 'Create Record'.\n or \n 1. Go to Home \n 2. Click on Plus Button 😊 "
+        android:textSize="16sp"
+        android:padding="8dp"
+        android:gravity="center"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/appbarId"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/addRecordTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Create Record"
+        android:drawablePadding="8dp"
+        android:textSize="16sp"
+        android:padding="8dp"
+        android:background="@drawable/rectangle_shape"
+        app:drawableStartCompat="@drawable/baseline_add_24"
+        app:drawableTint="@color/icon_color_primary"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/messageId"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0.25"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

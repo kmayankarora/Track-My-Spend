@@ -1,0 +1,17 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.TrackMySpend" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="android:windowBackground">@color/window_bg_color</item>
+        <item name="colorPrimary">#FF5722</item>
+        <item name="colorPrimaryVariant">#E64A19</item>
+        <item name="colorOnPrimary">#FFFFFF</item>
+
+        <!-- Secondary color -->
+        <item name="colorSecondary">#FFC107</item>
+        <item name="colorOnSecondary">#000000</item>
+
+        <!-- Ripple effect color -->
+        <item name="rippleColor">#FFAB40</item>
+
+    </style>
+</resources>

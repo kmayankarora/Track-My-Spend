@@ -1,0 +1,389 @@
+ <LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/mainId"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:focusable="true"
+    android:fitsSystemWindows="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbarId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/window_appbar_bg_color"
+        android:gravity="center_vertical"
+        app:layout_scrollFlags="scroll|enterAlways|snap">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbarId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:elevation="0dp"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            app:title="Add Record"
+            app:titleCentered="true"
+            app:titleTextAppearance="@style/CustomToolbarTitle"
+            app:titleTextColor="@color/title_font_color" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+     <TextView
+         android:layout_marginBottom="2dp"
+         android:id="@+id/presetNameTitle"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:text="Current Period"
+         android:gravity="center"
+         android:layout_gravity="center"
+         android:fontFamily="@font/quicksand_medium"
+         android:textSize="14sp"
+         android:letterSpacing="0.1"
+         />
+     <com.google.android.material.divider.MaterialDivider
+         android:visibility="invisible"
+         android:id="@+id/dividerTopId"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_marginVertical="2dp"/>
+
+    <com.google.android.material.button.MaterialButtonToggleGroup
+        android:id="@+id/toggle_button_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+
+        android:gravity="center"
+        app:checkedButton="@id/spendToggleButtonId"
+        app:selectionRequired="true"
+        app:singleSelection="true">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/spendToggleButtonId"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="0dp"
+            android:text="Spend"
+            android:textAllCaps="true"
+            android:fontFamily="@font/quicksand_medium"
+            android:letterSpacing="0.1"
+            android:textColor="@color/toggle_button_text_colors"
+            app:backgroundTint="@color/toggle_button_bg_colors"
+            app:rippleColor="@color/toggle_btn_ripple_color" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/transferToggleButtonId"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:minEms="10"
+            android:text="Transfer"
+            android:paddingHorizontal="0dp"
+            android:fontFamily="@font/quicksand_medium"
+            android:letterSpacing="0.1"
+            android:textAllCaps="true"
+            android:textColor="@color/toggle_button_text_colors"
+            app:backgroundTint="@color/toggle_button_bg_colors"
+            app:rippleColor="@color/toggle_btn_ripple_color"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/earnedToggleButtonId"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Earned"
+            android:padding="0dp"
+            android:textAllCaps="true"
+            android:fontFamily="@font/quicksand_medium"
+            android:letterSpacing="0.1"
+            android:textColor="@color/toggle_button_text_colors"
+            app:backgroundTint="@color/toggle_button_bg_colors"
+            app:iconSize="24dp"
+            app:rippleColor="@color/toggle_btn_ripple_color"/>
+    </com.google.android.material.button.MaterialButtonToggleGroup>
+
+    <LinearLayout
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+    <EditText
+        android:id="@+id/expenseAmountId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginHorizontal="8dp"
+        android:layout_marginVertical="20dp"
+        android:background="@drawable/rectangle_shape"
+        android:backgroundTint="@color/edittext_special_bg_color"
+        android:drawableStart="@drawable/rupee_sign_svgrepo_com"
+        android:drawablePadding="6dp"
+        android:drawableTint="@color/edittext_special_icon_color"
+        android:hint="0"
+        android:imeOptions="actionDone"
+        android:inputType="number"
+        android:maxLength="6"
+        android:maxLines="1"
+        android:minEms="3"
+        android:padding="8dp"
+        android:paddingHorizontal="16dp"
+        android:textColor="@color/normal_text_color"
+        android:fontFamily="@font/quicksand_medium"
+        android:letterSpacing="0.1"
+        android:textSize="36sp" />
+    </LinearLayout>
+    <LinearLayout
+        android:visibility="invisible"
+        android:layout_marginVertical="6dp"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/toFromLinearLayoutId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+    <ToggleButton
+        android:id="@+id/toFromId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:drawablePadding="8dp"
+        android:drawableTint="@color/icon_color_primary"
+        android:gravity="center"
+        android:minEms="5"
+        android:padding="8dp"
+        android:textOff="From"
+        android:textOn="To"
+        app:drawableEndCompat="@drawable/baseline_keyboard_arrow_down_24"/>
+
+    <EditText
+        android:id="@+id/transferToFromPersonId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="2dp"
+        android:hint="Person/ Organization"
+        android:textColorHint="@color/edittext_hint_font_color"
+        android:inputType="text"
+        android:maxLength="20"
+        android:maxLines="1"
+        android:minEms="7"
+        android:padding="8dp"
+        android:paddingHorizontal="4dp"
+        android:textColor="@color/edittext_font_color"
+        android:textSize="16sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginHorizontal="6dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <TextView
+        android:textSize="16sp"
+        android:id="@+id/categoryTitleTextView"
+        android:layout_width="0dp"
+        android:layout_weight="6"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="4dp"
+        android:layout_marginVertical="2dp"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="8dp"
+        android:fontFamily="@font/quicksand_medium"
+        android:letterSpacing="0.1"
+        android:paddingVertical="6dp"
+        android:text="Category -"/>
+    <ImageView
+        android:id="@+id/addCategoryButtonId"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:minWidth="24dp"
+        android:minHeight="24dp"
+        android:src="@drawable/baseline_add_24"
+        android:layout_gravity="end|center_vertical"
+        android:layout_margin="2dp"
+        android:paddingHorizontal="8dp"
+        android:paddingVertical="6dp"
+        app:tint="@color/icon_color_primary" />
+    </LinearLayout>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardviewId"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1.25"
+        android:layout_marginHorizontal="8dp"
+        android:layout_marginBottom="4dp"
+        android:background="@color/window_bg_color"
+        android:elevation="4dp"
+        app:cardCornerRadius="4dp">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/iconRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/little_dark_bg_1"
+            android:scrollbars="none" />
+    </androidx.cardview.widget.CardView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+    <TextView
+        android:textSize="16sp"
+        android:id="@+id/dateTitleTextView"
+        android:layout_width="0dp"
+        android:fontFamily="@font/quicksand_medium"
+        android:letterSpacing="0.1"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:gravity="left"
+        android:paddingHorizontal="8dp"
+        android:paddingVertical="6dp"
+        android:text="Date" />
+
+    <TextView
+        android:id="@+id/datePickerTextId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="6dp"
+        android:background="@drawable/rectangle_shape"
+        android:backgroundTint="@color/edittext_special_bg_color"
+        android:drawablePadding="16dp"
+        android:gravity="center"
+        android:textColor="@color/normal_text_color"
+        android:paddingHorizontal="8dp"
+        android:paddingVertical="6dp"
+        android:text="17/12/2024"
+        android:fontFamily="@font/quicksand_medium"
+        android:letterSpacing="0.1"
+        app:drawableStartCompat="@drawable/baseline_calendar_today_24"
+        app:drawableTint="@color/icon_color_primary" />
+
+    </LinearLayout>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+    <TextView
+        android:textSize="16sp"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:fontFamily="@font/quicksand_medium"
+        android:letterSpacing="0.1"
+        android:gravity="left"
+        android:paddingHorizontal="8dp"
+        android:paddingVertical="4dp"
+        android:text="Time" />
+
+    <TextView
+        android:id="@+id/timePickerTextId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="6dp"
+        android:fontFamily="@font/quicksand_medium"
+        android:letterSpacing="0.1"
+        android:background="@drawable/rectangle_shape"
+        android:backgroundTint="@color/edittext_special_bg_color"
+        android:drawablePadding="16dp"
+        android:gravity="center"
+        android:paddingHorizontal="8dp"
+        android:paddingVertical="6dp"
+        android:text="12:30"
+        android:textColor="@color/normal_text_color"
+        app:drawableStartCompat="@drawable/baseline_access_time_24"
+        app:drawableTint="@color/edittext_special_icon_color" />
+</LinearLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/expenseDescriptionInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="8dp"
+        android:hint="Description"
+        android:paddingHorizontal="4dp"
+        app:counterEnabled="true"
+        app:counterMaxLength="36"
+
+        app:counterTextColor="@color/normal_text_color"
+        android:paddingVertical="2dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/expenseDescriptionEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/baseline_edit_note_24"
+            android:drawablePadding="8dp"
+            android:drawableTint="@color/edittext_icon_color"
+            android:ellipsize="end"
+            android:imeOptions="actionDone"
+            android:lines="1"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:fontFamily="@font/quicksand_medium"
+            android:letterSpacing="0.1"
+            android:textColor="@color/edittext_font_color" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.button.MaterialButtonToggleGroup
+        android:id="@+id/submit_toggle_button_groupId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_marginHorizontal="8dp"
+        android:layout_marginBottom="8dp"
+        android:gravity="center">
+        <com.google.android.material.button.MaterialButton
+            android:visibility="gone"
+            android:id="@+id/deletePresetInfoId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/quicksand_medium"
+            android:letterSpacing="0.1"
+            app:icon="@drawable/baseline_delete_forever_24"
+            android:paddingHorizontal="16dp"
+            android:text="Delete" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/savePresetInfoId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:icon="@drawable/baseline_favorite_24"
+            android:fontFamily="@font/quicksand_medium"
+            android:letterSpacing="0.1"
+            android:paddingHorizontal="16dp"
+            android:text="Favorite" />
+        <com.google.android.material.button.MaterialButton
+            android:visibility="gone"
+            android:id="@+id/deleteExpenseInfoId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:icon="@drawable/baseline_delete_forever_24"
+            android:paddingHorizontal="16dp"
+            app:iconTint="@color/white"
+            android:fontFamily="@font/quicksand_medium"
+            android:letterSpacing="0.1"
+            android:text="Delete" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/saveExpenseInfoId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/quicksand_medium"
+            android:letterSpacing="0.1"
+            app:icon="@drawable/baseline_add_24"
+            android:paddingHorizontal="16dp"
+            android:text="Save" />
+
+    </com.google.android.material.button.MaterialButtonToggleGroup>
+</LinearLayout>

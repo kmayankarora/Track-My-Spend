@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="red">#FF0000</color>
+    <color name="yellow">#FFFF00</color>
+    <color name="green">#00FF00</color>
+    <color name="purple">#ff00ff</color>
+    <color name="gold">#FFD700</color>
+    <color name="brightOrange">#FFA500</color>
+
+    <!--    Template for names: viewName(short)_description_bg/fg/tc (textcolor) / ic (icon color) -->
+
+    <color name="window_appbar_bg_color">#333333</color>
+    <color name="title_font_color">#eee</color>
+    <color name="little_dark_bg_1">#333</color>
+    <color name="divider_color_bg">#333</color>
+
+    <color name="tv_report_card_bg">#2a2a2a</color>
+    <color name="tv_report_card_sum_font_color">#FF5722</color>
+    <color name="normal_text_color">#eee</color>
+
+    <!--EditText colors-->
+    <color name="edittext_special_bg_color">#2a2a2a</color>
+    <color name="edittext_special_icon_color">#aaa</color>
+    <color name="edittext_icon_color">#aaa</color>
+    <color name="edittext_font_color">#aaa</color>
+    <color name="edittext_hint_font_color">#999</color>
+
+    <color name="icon_color_primary">#ddd</color>
+    <color name="icon_color_for_dark_bg">#ddd</color>
+    <color name="button_icon_color">#ddd</color>
+
+    <!--CardView colors-->
+    <color name="card_view_dark_bg">#1a1a1a</color>
+    <color name="card_view_light_bg">#333</color>
+    <color name="card_view_normal_bg">#2a2a2a</color>
+    <color name="card_view_font_color">#DDDDDD</color>
+
+    <!--Toggle Button Colors-->
+    <color name="button_bg_default">#FF5722</color>
+    <color name="toggle_button_bg_color_checked">#2a2a2a</color>
+    <color name="toggle_button_bg_color_default">#333333</color>
+    <color name="toggle_btn_ripple_color">#CC4711</color>
+    <color name="toggle_btn_font_color_checked">#FF5722</color>
+    <color name="toggle_btn_font_color_default">#eee</color>
+
+    <color name="spinner_text_color">#ddd</color>
+    <color name="spinner_icon_and_item_bg_color">#333</color>
+    <color name="spinner_bg_color">#333</color>
+
+
+    <!--font colors-->
+    <color name="normal_font_color">#DDDDDD</color>
+    <color name="fab_bg_color">#FF5722</color>
+
+
+    <!--background colors-->
+
+    <color name="edittext_bg_color">#2a2a2a</color>
+    <color name="cardview_bg_color_default">#444444</color>
+    <color name="cardview_bg_color_selected">#1a1a1a</color>
+    <color name="divider_bg_primary">#2a2a2a</color>
+    <color name="progress_bar_bg">#2a2a2a</color>
+    <color name="progress_bar_fg1">#FF5722</color>
+    <color name="progress_bar_fg2">#57FF22</color>
+    <color name="progress_bar_fg3">#FF2257</color>
+    <color name="progress_bar_fg4">#5722FF</color>
+    <color name="sharp_rectangle_bg">#2a2a2a</color>
+
+    <!--icon bg color-->
+
+
+</resources>

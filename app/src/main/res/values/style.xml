@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="MyActionBarTheme" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:textColorPrimary">@color/icon_color_for_dark_bg</item>
+        <item name="android:textColor">@color/spinner_text_color</item>
+        <item name="android:backgroundTint">@color/spinner_icon_and_item_bg_color</item>
+    </style>
+    <style name="CustomToolbarTitle" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="fontFamily">@font/early_sunday</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:letterSpacing">0.12</item>
+    </style>
+</resources>

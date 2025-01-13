@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:title="Manage Favorites"
+        android:id="@+id/manage_preset_list_menu"
+        app:showAsAction="never"/>
+    <item android:title="Manage Categories"
+        android:id="@+id/all_category_list_menu"
+        app:showAsAction="never" />
+    <item android:title="Set Preferences"
+        android:id="@+id/target_menu"
+        app:showAsAction="never" />
+</menu>

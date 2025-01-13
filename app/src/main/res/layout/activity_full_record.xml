@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".FullRecord">
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbarId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/window_appbar_bg_color"
+        android:gravity="center_vertical"
+        app:layout_scrollFlags="scroll|enterAlways|snap"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:theme="@style/ThemeOverlay.MaterialComponents.ActionBar">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbarId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:elevation="0dp"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            app:title="All Records"
+            app:titleCentered="true"
+            app:titleTextAppearance="@style/CustomToolbarTitle"
+            android:theme="@style/MyActionBarTheme"
+            app:titleTextColor="@color/title_font_color" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <NumberPicker
+        android:minWidth="80dp"
+        android:id="@+id/monthNumberPickerId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/appbarId"
+        app:layout_constraintRight_toLeftOf="@id/yearNumberPickerId"
+        app:layout_constraintBottom_toTopOf="@id/graphCardId"
+        />
+    <NumberPicker
+        android:minWidth="80dp"
+        android:id="@+id/yearNumberPickerId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toRightOf="@id/monthNumberPickerId"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/appbarId"
+        app:layout_constraintBottom_toTopOf="@id/graphCardId"
+        />
+
+    <TextView
+        android:id="@+id/monthYearDisplayId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:fontFamily="@font/quicksand_medium"
+        android:letterSpacing="0.1"
+        android:layout_marginHorizontal="8dp"
+        android:layout_marginVertical="24dp"
+        android:background="@drawable/rectangle_shape"
+        android:backgroundTint="@color/edittext_special_bg_color"
+        android:drawablePadding="6dp"
+        android:maxLines="1"
+        android:minEms="3"
+        android:padding="8dp"
+        android:paddingHorizontal="16dp"
+        android:textColor="@color/normal_text_color"
+        android:textSize="20sp"
+        app:drawableStartCompat="@drawable/baseline_calendar_today_24"
+        app:drawableTint="@color/edittext_special_icon_color"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/yearNumberPickerId"
+        app:layout_constraintBottom_toTopOf="@id/graphCardId"
+        />
+
+    <TextView
+        android:id="@+id/categoryWiseRecordsId"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingVertical="24dp"
+        android:textSize="16sp"
+        android:text="Category Wise Records"
+        android:fontFamily="@font/quicksand_medium"
+        android:letterSpacing="0.1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:paddingHorizontal="16dp"/>
+
+    <ImageView
+        android:id="@+id/allCategoryRecordsArrowButtonId"
+        android:layout_marginHorizontal="8dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="1"
+        app:layout_constraintRight_toRightOf="parent"
+        android:padding="24dp"
+        android:src="@drawable/baseline_arrow_forward_ios_24"
+        app:layout_constraintTop_toTopOf="@id/categoryWiseRecordsId"
+        app:layout_constraintBottom_toBottomOf="@id/categoryWiseRecordsId"
+        app:tint="@color/icon_color_primary" />
+
+    <com.google.android.material.divider.MaterialDivider
+        android:id="@+id/categoryAndAllDividerId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/divider_color_bg"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/categoryWiseRecordsId"/>
+
+    <TextView
+        android:id="@+id/allRecordId"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingVertical="24dp"
+        android:text="All Records"
+        app:layout_constraintRight_toRightOf="parent"
+        android:textSize="16sp"
+        android:fontFamily="@font/quicksand_medium"
+        android:letterSpacing="0.1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/categoryAndAllDividerId"
+        android:paddingHorizontal="16dp"/>
+
+    <ImageView
+        android:id="@+id/allRecordsArrowButtonId"
+        android:layout_marginHorizontal="8dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="1"
+        app:layout_constraintRight_toRightOf="parent"
+        android:padding="24dp"
+        android:src="@drawable/baseline_arrow_forward_ios_24"
+        app:layout_constraintTop_toTopOf="@id/allRecordId"
+        app:layout_constraintBottom_toBottomOf="@id/allRecordId"
+        app:tint="@color/icon_color_primary" />
+    <com.google.android.material.divider.MaterialDivider
+        android:id="@+id/reportCardAndAllDividerId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/divider_color_bg"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/allRecordId"/>
+
+    <TextView
+        android:id="@+id/reportCardId"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingVertical="24dp"
+        android:text="Report Card"
+        android:textSize="16sp"
+        android:fontFamily="@font/quicksand_medium"
+        android:letterSpacing="0.1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/allRecordId"
+        app:layout_constraintRight_toRightOf="parent"
+        android:paddingHorizontal="16dp"/>
+
+    <ImageView
+        android:id="@+id/reportCardArrowButtonId"
+        android:layout_marginHorizontal="8dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="1"
+        app:layout_constraintRight_toRightOf="parent"
+        android:padding="24dp"
+        android:src="@drawable/baseline_arrow_forward_ios_24"
+        app:layout_constraintTop_toTopOf="@id/reportCardId"
+        app:layout_constraintBottom_toBottomOf="@id/reportCardId"
+        app:tint="@color/icon_color_primary" />
+    <com.google.android.material.divider.MaterialDivider
+        android:visibility="gone"
+        android:id="@+id/reportCardAndGraphsDividerId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/divider_color_bg"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/reportCardId"/>
+
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/graphCardId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingVertical="24dp"
+        android:text="Graphs"
+        android:textSize="16sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/reportCardId"
+        android:drawablePadding="16dp"
+        android:paddingHorizontal="16dp"/>
+
+    <ImageView
+        android:visibility="gone"
+        android:id="@+id/graphCardArrowButtonId"
+        android:layout_marginHorizontal="8dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="1"
+        app:layout_constraintRight_toRightOf="parent"
+        android:padding="24dp"
+        android:src="@drawable/baseline_arrow_forward_ios_24"
+        app:layout_constraintTop_toTopOf="@id/graphCardId"
+        app:layout_constraintBottom_toBottomOf="@id/graphCardId"
+        app:tint="@color/icon_color_primary" />
+</androidx.constraintlayout.widget.ConstraintLayout>

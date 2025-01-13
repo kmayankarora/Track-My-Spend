@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/mainId"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:fitsSystemWindows="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical">
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbarId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/window_appbar_bg_color"
+            android:gravity="center_vertical"
+            app:layout_scrollFlags="scroll|enterAlways|snap">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolbarId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:elevation="0dp"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                app:title="Preferences"
+                app:titleCentered="true"
+                app:titleTextAppearance="@style/CustomToolbarTitle"
+                app:titleTextColor="@color/title_font_color" />
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center"
+            android:src="@drawable/_195527_3169208"
+            android:layout_margin="16dp"
+            />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/expenseTargetInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:hint="Expense Target (Expected)"
+            android:paddingHorizontal="4dp"
+            android:paddingVertical="2dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/expenseTargetEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/baseline_edit_note_24"
+                android:drawablePadding="8dp"
+                android:fontFamily="@font/quicksand_medium"
+                android:letterSpacing="0.1"
+                android:drawableTint="@color/edittext_icon_color"
+                android:ellipsize="end"
+                android:inputType="number"
+                android:imeOptions="actionDone"
+                android:lines="1"
+                android:text="10000"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:maxLength="8"
+                android:textColor="@color/edittext_font_color" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/earningTargetInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="4dp"
+            android:hint="Earning Target (Expected)"
+            android:paddingHorizontal="4dp"
+            android:paddingVertical="2dp">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/earningTargetEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/baseline_edit_note_24"
+                android:drawablePadding="8dp"
+                android:fontFamily="@font/quicksand_medium"
+                android:letterSpacing="0.1"
+                android:drawableTint="@color/edittext_icon_color"
+                android:ellipsize="end"
+                android:inputType="number"
+                android:imeOptions="actionDone"
+                android:lines="1"
+                android:maxLength="8"
+                android:text="10000"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textColor="@color/edittext_font_color" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.materialswitch.MaterialSwitch
+            android:id="@+id/earningToggleSwitch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Show Earning in Report Card"
+            android:layout_marginHorizontal="8dp"
+            android:fontFamily="@font/quicksand_medium"
+            android:letterSpacing="0.1"
+            android:layout_marginVertical="2dp"
+            android:textOn="Show"
+            android:textOff="Hide"
+            android:padding="4dp"/>
+        <com.google.android.material.materialswitch.MaterialSwitch
+            android:id="@+id/transferFromToggleSwitch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Show Transfer From in Report Card"
+            android:layout_marginHorizontal="8dp"
+            android:layout_marginVertical="2dp"
+            android:fontFamily="@font/quicksand_medium"
+            android:letterSpacing="0.1"
+            android:textOn="Show"
+            android:textOff="Hide"
+            android:padding="4dp"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/saveTargetPrefBtnId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_gravity="right"
+            android:fontFamily="@font/quicksand_medium"
+            android:letterSpacing="0.1"
+            app:icon="@drawable/baseline_check_24"
+            app:iconPadding="8dp"
+            android:text="Save" />
+    </LinearLayout>
+</ScrollView>

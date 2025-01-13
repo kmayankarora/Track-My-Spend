@@ -1,0 +1,23 @@
+<!-- res/drawable/custom_horizontal_progress_bar.xml -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Background Layer (Progress Bar Background) -->
+    <item>
+        <shape>
+            <size android:height="2dp" />
+            <corners android:radius="24dp" /> <!-- Rounded corners for background -->
+            <solid android:color="@color/progress_bar_bg" /> <!-- Light gray background color -->
+        </shape>
+    </item>
+
+    <!-- Progress Layer (Foreground Progress) -->
+    <item>
+        <scale android:scaleWidth="100%">
+            <shape>
+                <corners android:radius="24dp" /> <!-- Same rounded corners -->
+                <solid android:color="@color/progress_bar_fg1" /> <!-- Blue progress color -->
+                <size android:height="2dp" /> <!-- Thickness of progress bar -->
+            </shape>
+        </scale>
+    </item>
+</layer-list>
