@@ -40,9 +40,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/appbarId"
+        app:layout_constraintTop_toTopOf="@id/yearNumberPickerId"
         app:layout_constraintRight_toLeftOf="@id/yearNumberPickerId"
-        app:layout_constraintBottom_toTopOf="@id/graphCardId"
+        app:layout_constraintBottom_toBottomOf="@id/yearNumberPickerId"
         />
     <NumberPicker
         android:minWidth="80dp"
@@ -52,7 +52,7 @@
         app:layout_constraintLeft_toRightOf="@id/monthNumberPickerId"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/appbarId"
-        app:layout_constraintBottom_toTopOf="@id/graphCardId"
+        app:layout_constraintBottom_toTopOf="@id/monthYearDisplayId"
         />
 
     <TextView
@@ -82,18 +82,74 @@
         />
 
     <TextView
-        android:id="@+id/categoryWiseRecordsId"
+        android:id="@+id/clubDetailsInfo"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:paddingVertical="24dp"
         android:textSize="16sp"
-        android:text="Category Wise Records"
+        android:text="Folders"
         android:fontFamily="@font/quicksand_medium"
         android:letterSpacing="0.1"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:paddingHorizontal="16dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="All"
+        android:textSize="12sp"
+        app:layout_constraintTop_toTopOf="@id/clubDetailsInfo"
+        app:layout_constraintBottom_toBottomOf="@id/clubDetailsInfo"
+        app:layout_constraintRight_toLeftOf="@id/allCategoryRecordsArrowButtonId"/>
+
+
+    <ImageView
+        android:layout_marginHorizontal="8dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="1"
+        app:layout_constraintRight_toRightOf="parent"
+        android:padding="24dp"
+        android:src="@drawable/baseline_arrow_forward_ios_24"
+        app:layout_constraintTop_toTopOf="@id/clubDetailsInfo"
+        app:layout_constraintBottom_toBottomOf="@id/clubDetailsInfo"
+        app:tint="@color/icon_color_primary" />
+
+    <com.google.android.material.divider.MaterialDivider
+        android:id="@+id/categoryAndclubDividerId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/divider_color_bg"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/clubDetailsInfo"/>
+
+    <TextView
+        android:id="@+id/categoryWiseRecordsId"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingVertical="24dp"
+        android:textSize="16sp"
+        android:text="Category Records"
+        android:fontFamily="@font/quicksand_medium"
+        android:letterSpacing="0.1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/categoryAndclubDividerId"
+        android:paddingHorizontal="16dp"/>
+
+    <TextView
+        android:id="@+id/monthIndicatorText3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="12/2025"
+        android:textSize="12sp"
+        app:layout_constraintTop_toTopOf="@id/allCategoryRecordsArrowButtonId"
+        app:layout_constraintBottom_toBottomOf="@id/allCategoryRecordsArrowButtonId"
+        app:layout_constraintRight_toLeftOf="@id/allCategoryRecordsArrowButtonId"/>
+
 
     <ImageView
         android:id="@+id/allCategoryRecordsArrowButtonId"
@@ -131,6 +187,17 @@
         app:layout_constraintBottom_toTopOf="@id/categoryAndAllDividerId"
         android:paddingHorizontal="16dp"/>
 
+    <TextView
+        android:id="@+id/monthIndicatorText2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="12/2025"
+        android:textSize="12sp"
+        app:layout_constraintTop_toTopOf="@id/allRecordId"
+        app:layout_constraintBottom_toBottomOf="@id/allRecordId"
+        app:layout_constraintRight_toLeftOf="@id/reportCardArrowButtonId"/>
+
+
     <ImageView
         android:id="@+id/allRecordsArrowButtonId"
         android:layout_marginHorizontal="8dp"
@@ -157,7 +224,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:paddingVertical="24dp"
-        android:text="Report Card"
+        android:text="Passbook"
         android:textSize="16sp"
         android:fontFamily="@font/quicksand_medium"
         android:letterSpacing="0.1"
@@ -165,6 +232,16 @@
         app:layout_constraintBottom_toTopOf="@id/allRecordId"
         app:layout_constraintRight_toRightOf="parent"
         android:paddingHorizontal="16dp"/>
+
+    <TextView
+        android:id="@+id/monthIndicatorText1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="12/2025"
+        android:textSize="12sp"
+        app:layout_constraintTop_toTopOf="@id/reportCardArrowButtonId"
+        app:layout_constraintBottom_toBottomOf="@id/reportCardArrowButtonId"
+        app:layout_constraintRight_toLeftOf="@id/reportCardArrowButtonId"/>
 
     <ImageView
         android:id="@+id/reportCardArrowButtonId"

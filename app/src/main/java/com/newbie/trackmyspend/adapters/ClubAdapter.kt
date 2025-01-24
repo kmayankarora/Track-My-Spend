@@ -15,36 +15,36 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.newbie.trackmyspend.R
-import com.newbie.trackmyspend.model.CategoryExpenseInfo
-import com.newbie.trackmyspend.model.CategoryInfo
+import com.newbie.trackmyspend.model.ClubInfo
 
 
-class CategoryAdapter(
+class ClubAdapter(
     private val context: Context,
-    private val onCategorySelected: (Int) -> Unit, // Callback for the selected position
+    private val onClubSelected: (Int) -> Unit,
     private val defaultSelected : Int = -1
-) : ListAdapter<CategoryInfo, CategoryAdapter.CategoryViewHolder>(DIFF_CALLBACK) {
+) : ListAdapter<ClubInfo, ClubAdapter.ClubViewHolder>(DIFF_CALLBACK) {
 
     private var selectedPosition = if (defaultSelected != -1) defaultSelected else RecyclerView.NO_POSITION // Tracks the selected item
     private val selectedColor = ContextCompat.getColor(context, R.color.card_view_dark_bg)
     private val defaultColor = ContextCompat.getColor(context, R.color.card_view_light_bg)
 
     companion object {
-        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<CategoryInfo>() {
-            override fun areItemsTheSame(oldItem: CategoryInfo, newItem: CategoryInfo): Boolean {
+        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<ClubInfo>() {
+            override fun areItemsTheSame(oldItem: ClubInfo, newItem: ClubInfo): Boolean {
                 // Compare items by unique identifier or content
                 return oldItem.id == newItem.id
             }
 
-            override fun areContentsTheSame(oldItem: CategoryInfo, newItem: CategoryInfo): Boolean {
+            override fun areContentsTheSame(oldItem: ClubInfo, newItem: ClubInfo): Boolean {
                 return oldItem == newItem
             }
         }
     }
 
-    inner class CategoryViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val categoryTextView: TextView = view.findViewById(R.id.iconTextView)
+    inner class ClubViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val titleTextView: TextView = view.findViewById(R.id.clubTitleId)
         val iconTextView : ImageView = view.findViewById(R.id.iconImageView)
+        val subtitleTextView: TextView = view.findViewById(R.id.clubSubtitleId)
         val constraintLayout: ConstraintLayout = view.findViewById(R.id.constraintLayoutId)
 
         init {
@@ -61,31 +61,34 @@ class CategoryAdapter(
                 notifyItemChanged(selectedPosition)
 
                 // Trigger callback with the selected position
-                onCategorySelected(selectedPosition)
+                onClubSelected(selectedPosition)
             }
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ClubViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.category_list_rv_child_layout2, parent, false) // Inflate your item layout
-        return CategoryViewHolder(view)
+            .inflate(R.layout.club_rv_child_layout, parent, false) // Inflate your item layout
+        return ClubViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ClubViewHolder, position: Int) {
         val item = getItem(position)
-        holder.categoryTextView.text = item.title
+        holder.titleTextView.text = item.title
+
+        holder.subtitleTextView.text = if (item.subtitle != null) item.subtitle.toString() else ""
+        holder.subtitleTextView.visibility = if (item.subtitle == null) View.GONE else View.VISIBLE
+
         holder.iconTextView.backgroundTintList = ColorStateList.valueOf(Color.parseColor(item.hexColorCode.toString()))
         // Highlight selected item with a different background
         if (position == selectedPosition) {
             holder.constraintLayout.setBackgroundColor(selectedColor) // Selected item background
-
         } else {
             holder.constraintLayout.setBackgroundColor(defaultColor) // Default background
         }
     }
 
-    override fun submitList(list: List<CategoryInfo>?) {
+    override fun submitList(list: List<ClubInfo>?) {
         super.submitList(list)
     }
 

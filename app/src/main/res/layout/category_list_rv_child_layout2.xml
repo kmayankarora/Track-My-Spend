@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/constraintLayoutId"
+    android:layout_width="match_parent"
+    android:minHeight="60dp"
+    android:paddingTop="4dp"
+    android:background="@color/card_view_light_bg"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:layout_margin="8dp"
+        android:padding="4dp"
+        android:id="@+id/iconImageView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:background="@drawable/circle"
+        android:backgroundTint="@color/divider_color_bg"
+        />
+    <!-- TextView inside the ConstraintLayout -->
+    <TextView
+        android:id="@+id/iconTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Title"
+        android:textSize="16sp"
+        android:paddingStart="6dp"
+        android:paddingVertical="2dp"
+        android:fontFamily="@font/quicksand_medium"
+        android:letterSpacing="0.1"
+        android:textColor="@color/card_view_font_color"
+        app:layout_constraintLeft_toRightOf="@id/iconImageView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:lines="1"
+        android:maxLength="20"
+        android:ellipsize="end"
+        />
+</androidx.constraintlayout.widget.ConstraintLayout>

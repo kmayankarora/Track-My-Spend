@@ -14,7 +14,7 @@
     <color name="window_appbar_bg_color">#333333</color>
     <color name="title_font_color">#eee</color>
     <color name="little_dark_bg_1">#333</color>
-    <color name="divider_color_bg">#333</color>
+    <color name="divider_color_bg">#555</color>
 
     <color name="tv_report_card_bg">#2a2a2a</color>
     <color name="tv_report_card_sum_font_color">#FF5722</color>
@@ -28,6 +28,7 @@
     <color name="edittext_hint_font_color">#999</color>
 
     <color name="icon_color_primary">#ddd</color>
+    <color name="icon_color_secondary">#333</color>
     <color name="icon_color_for_dark_bg">#ddd</color>
     <color name="button_icon_color">#ddd</color>
 

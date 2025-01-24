@@ -3,7 +3,7 @@
     android:id="@+id/mainId"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:focusable="true"
     android:fitsSystemWindows="true"
     android:focusableInTouchMode="true"
@@ -33,6 +33,7 @@
     </com.google.android.material.appbar.AppBarLayout>
 
      <TextView
+         android:visibility="gone"
          android:layout_marginBottom="2dp"
          android:id="@+id/presetNameTitle"
          android:layout_width="wrap_content"
@@ -56,7 +57,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-
         android:gravity="center"
         app:checkedButton="@id/spendToggleButtonId"
         app:selectionRequired="true"
@@ -85,7 +85,7 @@
             android:layout_weight="1"
             android:minEms="10"
             android:text="Transfer"
-            android:paddingHorizontal="0dp"
+            android:padding="0dp"
             android:fontFamily="@font/quicksand_medium"
             android:letterSpacing="0.1"
             android:textAllCaps="true"
@@ -106,7 +106,6 @@
             android:letterSpacing="0.1"
             android:textColor="@color/toggle_button_text_colors"
             app:backgroundTint="@color/toggle_button_bg_colors"
-            app:iconSize="24dp"
             app:rippleColor="@color/toggle_btn_ripple_color"/>
     </com.google.android.material.button.MaterialButtonToggleGroup>
 
@@ -115,14 +114,14 @@
         android:gravity="center_horizontal"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="0.8">
     <EditText
         android:id="@+id/expenseAmountId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginHorizontal="8dp"
-        android:layout_marginVertical="20dp"
+        android:layout_marginVertical="16dp"
         android:background="@drawable/rectangle_shape"
         android:backgroundTint="@color/edittext_special_bg_color"
         android:drawableStart="@drawable/rupee_sign_svgrepo_com"
@@ -134,7 +133,7 @@
         android:maxLength="6"
         android:maxLines="1"
         android:minEms="3"
-        android:padding="8dp"
+        android:paddingVertical="8dp"
         android:paddingHorizontal="16dp"
         android:textColor="@color/normal_text_color"
         android:fontFamily="@font/quicksand_medium"
@@ -143,7 +142,7 @@
     </LinearLayout>
     <LinearLayout
         android:visibility="invisible"
-        android:layout_marginVertical="6dp"
+        android:layout_marginBottom="12dp"
         android:layout_gravity="center_horizontal"
         android:id="@+id/toFromLinearLayoutId"
         android:layout_width="wrap_content"
@@ -154,11 +153,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
-        android:drawablePadding="8dp"
+        android:drawablePadding="4dp"
         android:drawableTint="@color/icon_color_primary"
         android:gravity="center"
         android:minEms="5"
-        android:padding="8dp"
+        android:paddingHorizontal="4dp"
+        android:paddingVertical="4dp"
         android:textOff="From"
         android:textOn="To"
         app:drawableEndCompat="@drawable/baseline_keyboard_arrow_down_24"/>
@@ -174,51 +174,31 @@
         android:maxLength="20"
         android:maxLines="1"
         android:minEms="7"
+        android:ellipsize="end"
         android:padding="8dp"
-        android:paddingHorizontal="4dp"
         android:textColor="@color/edittext_font_color"
         android:textSize="16sp" />
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_marginHorizontal="6dp"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
     <TextView
-        android:textSize="16sp"
+        android:textSize="14sp"
         android:id="@+id/categoryTitleTextView"
-        android:layout_width="0dp"
-        android:layout_weight="6"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="4dp"
-        android:layout_marginVertical="2dp"
+        android:layout_marginHorizontal="8dp"
         android:gravity="center_vertical"
-        android:paddingHorizontal="8dp"
+        android:paddingHorizontal="0dp"
         android:fontFamily="@font/quicksand_medium"
         android:letterSpacing="0.1"
         android:paddingVertical="6dp"
-        android:text="Category -"/>
-    <ImageView
-        android:id="@+id/addCategoryButtonId"
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:layout_height="wrap_content"
-        android:minWidth="24dp"
-        android:minHeight="24dp"
-        android:src="@drawable/baseline_add_24"
-        android:layout_gravity="end|center_vertical"
-        android:layout_margin="2dp"
-        android:paddingHorizontal="8dp"
-        android:paddingVertical="6dp"
-        app:tint="@color/icon_color_primary" />
-    </LinearLayout>
+        android:text="Category"/>
 
     <androidx.cardview.widget.CardView
+        android:visibility="gone"
         android:id="@+id/cardviewId"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1.25"
+        android:layout_weight="1.1"
         android:layout_marginHorizontal="8dp"
         android:layout_marginBottom="4dp"
         android:background="@color/window_bg_color"
@@ -233,118 +213,366 @@
             android:scrollbars="none" />
     </androidx.cardview.widget.CardView>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-    <TextView
-        android:textSize="16sp"
-        android:id="@+id/dateTitleTextView"
-        android:layout_width="0dp"
-        android:fontFamily="@font/quicksand_medium"
-        android:letterSpacing="0.1"
-        android:layout_weight="1"
-        android:layout_height="wrap_content"
-        android:layout_margin="4dp"
-        android:gravity="left"
-        android:paddingHorizontal="8dp"
-        android:paddingVertical="6dp"
-        android:text="Date" />
 
-    <TextView
-        android:id="@+id/datePickerTextId"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="6dp"
-        android:background="@drawable/rectangle_shape"
-        android:backgroundTint="@color/edittext_special_bg_color"
-        android:drawablePadding="16dp"
-        android:gravity="center"
-        android:textColor="@color/normal_text_color"
-        android:paddingHorizontal="8dp"
-        android:paddingVertical="6dp"
-        android:text="17/12/2024"
-        android:fontFamily="@font/quicksand_medium"
-        android:letterSpacing="0.1"
-        app:drawableStartCompat="@drawable/baseline_calendar_today_24"
-        app:drawableTint="@color/icon_color_primary" />
+    <com.google.android.material.card.MaterialCardView
+             android:layout_width="match_parent"
+             android:elevation="0dp"
+            app:cardCornerRadius="0dp"
+             android:backgroundTint="@color/card_view_light_bg"
+             android:layout_marginVertical="4dp"
+                android:layout_weight="0.3"
+             android:layout_height="0dp">
+             <LinearLayout
+                 android:padding="4dp"
+                 android:orientation="horizontal"
+                 android:layout_width="match_parent"
+                 android:layout_height="match_parent">
+                 <androidx.constraintlayout.widget.ConstraintLayout
+                     android:id="@+id/categorySelectedValueViewId"
+                     android:layout_width="0dp"
+                     android:layout_weight="1"
+                     android:layout_height="match_parent">
+                     <ImageView
+                         android:layout_marginHorizontal="8dp"
+                         android:padding="4dp"
+                         android:id="@+id/categoryIconImageView"
+                         app:layout_constraintTop_toTopOf="parent"
+                         app:layout_constraintBottom_toBottomOf="parent"
+                         app:layout_constraintLeft_toLeftOf="parent"
+                         android:layout_width="32dp"
+                         android:layout_height="32dp"
+                         android:background="@drawable/circle"
+                         android:backgroundTint="@color/purple"
+                         />
+                     <TextView
+                         android:id="@+id/categoryTitleValueId"
+                         android:elevation="8dp"
+                         android:layout_width="0dp"
+                         android:layout_height="wrap_content"
+                         android:fontFamily="@font/quicksand_medium"
+                         android:letterSpacing="0.1"
+                         android:textSize="14sp"
+                         app:layout_constraintTop_toTopOf="parent"
+                         app:layout_constraintRight_toRightOf="parent"
+                         app:layout_constraintLeft_toRightOf="@id/categoryIconImageView"
+                         app:layout_constraintBottom_toBottomOf="parent"
+                         android:text="Trip to Dubai"
+                         android:gravity="center_vertical"
+                         android:padding="2dp"
+                         android:maxLines="1"
+                         android:ellipsize="end"
+                         android:paddingStart="12dp"
+                         android:textColor="@color/normal_text_color"
+                         />
+                     <TextView
+                         android:visibility="gone"
+                         android:id="@+id/categoryNoneId"
+                         android:layout_width="0dp"
+                         android:layout_height="0dp"
+                         android:fontFamily="@font/quicksand_medium"
+                         android:letterSpacing="0.1"
+                         android:textSize="16sp"
+                         app:layout_constraintTop_toTopOf="parent"
+                         app:layout_constraintRight_toRightOf="parent"
+                         app:layout_constraintLeft_toLeftOf="parent"
+                         app:layout_constraintBottom_toBottomOf="parent"
+                         android:text="None (Optional)"
+                         android:gravity="center"
+                         android:textColor="@color/normal_text_color"
+                         />
 
-    </LinearLayout>
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal">
-    <TextView
-        android:textSize="16sp"
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:layout_height="wrap_content"
-        android:layout_margin="4dp"
-        android:fontFamily="@font/quicksand_medium"
-        android:letterSpacing="0.1"
-        android:gravity="left"
-        android:paddingHorizontal="8dp"
-        android:paddingVertical="4dp"
-        android:text="Time" />
+                 </androidx.constraintlayout.widget.ConstraintLayout>
+                 <ImageView
+                     android:layout_gravity="center_vertical"
+                     android:id="@+id/addCategoryButtonId"
+                     android:layout_width="36dp"
+                     android:layout_height="36dp"
+                     android:padding="4dp"
+                     android:minWidth="24dp"
+                     android:minHeight="24dp"
+                     android:layout_margin="4dp"
+                     android:src="@drawable/baseline_add_24"
+                     android:background="@drawable/circle"
+                     android:backgroundTint="@color/icon_color_secondary"
+                     app:tint="@color/icon_color_primary" />
+                 <ImageView
+                     android:layout_gravity="center_vertical"
+                     android:visibility="gone"
+                     android:id="@+id/clearCategoryButtonId"
+                     android:layout_width="36dp"
+                     android:layout_height="36dp"
+                     android:padding="4dp"
+                     android:minWidth="24dp"
+                     android:minHeight="24dp"
+                     android:layout_margin="4dp"
+                     android:src="@drawable/baseline_close_24"
+                     android:background="@drawable/circle"
+                     android:backgroundTint="@color/icon_color_secondary"
+                     app:tint="@color/icon_color_primary" />
+             </LinearLayout>
+         </com.google.android.material.card.MaterialCardView>
 
-    <TextView
-        android:id="@+id/timePickerTextId"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="6dp"
-        android:fontFamily="@font/quicksand_medium"
-        android:letterSpacing="0.1"
-        android:background="@drawable/rectangle_shape"
-        android:backgroundTint="@color/edittext_special_bg_color"
-        android:drawablePadding="16dp"
-        android:gravity="center"
-        android:paddingHorizontal="8dp"
-        android:paddingVertical="6dp"
-        android:text="12:30"
-        android:textColor="@color/normal_text_color"
-        app:drawableStartCompat="@drawable/baseline_access_time_24"
-        app:drawableTint="@color/edittext_special_icon_color" />
-</LinearLayout>
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/expenseDescriptionInputLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="8dp"
-        android:hint="Description"
-        android:paddingHorizontal="4dp"
-        app:counterEnabled="true"
-        app:counterMaxLength="36"
+     <LinearLayout
+         android:layout_width="match_parent"
+         android:layout_marginVertical="2dp"
+         android:layout_marginHorizontal="4dp"
+         android:layout_height="wrap_content">
+         <TextView
+             android:id="@+id/DateTitleId"
+             android:textSize="16sp"
+             android:layout_width="0dp"
+             android:layout_weight="1"
+             android:layout_height="wrap_content"
+             android:fontFamily="@font/quicksand_medium"
+             android:letterSpacing="0.1"
+android:layout_marginHorizontal="4dp"
+             android:layout_gravity="center"
+             android:paddingVertical="4dp"
+             android:text="Date" />
 
-        app:counterTextColor="@color/normal_text_color"
-        android:paddingVertical="2dp">
+         <TextView
+             android:id="@+id/datePickerTextId"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_margin="4dp"
+             android:background="@drawable/rectangle_shape"
+             android:backgroundTint="@color/edittext_special_bg_color"
+             android:drawablePadding="8dp"
+             android:gravity="center"
+             android:textColor="@color/normal_text_color"
+             android:paddingHorizontal="8dp"
+             android:paddingVertical="4dp"
+             android:text="17/12/2024"
+             android:fontFamily="@font/quicksand_medium"
+             android:letterSpacing="0.1"
+             app:drawableStartCompat="@drawable/baseline_calendar_today_24"
+             app:drawableTint="@color/icon_color_primary"/>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/expenseDescriptionEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:drawableStart="@drawable/baseline_edit_note_24"
-            android:drawablePadding="8dp"
-            android:drawableTint="@color/edittext_icon_color"
-            android:ellipsize="end"
-            android:imeOptions="actionDone"
-            android:lines="1"
-            android:maxLines="1"
-            android:singleLine="true"
-            android:fontFamily="@font/quicksand_medium"
-            android:letterSpacing="0.1"
-            android:textColor="@color/edittext_font_color" />
+     </LinearLayout>
 
-    </com.google.android.material.textfield.TextInputLayout>
+     <LinearLayout
+         android:layout_width="match_parent"
+         android:layout_marginVertical="2dp"
+         android:layout_marginHorizontal="4dp"
+         android:layout_height="wrap_content">
+         <TextView
+             android:id="@+id/TimeTitleId"
+             android:textSize="16sp"
+             android:layout_width="0dp"
+             android:layout_weight="1"
+             android:layout_height="wrap_content"
+             android:fontFamily="@font/quicksand_medium"
+             android:letterSpacing="0.1"
+             android:layout_marginHorizontal="4dp"
+             android:layout_gravity="center"
+             android:paddingVertical="4dp"
+             android:text="Time" />
 
+         <TextView
+             android:id="@+id/timePickerTextId"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_margin="4dp"
+             android:fontFamily="@font/quicksand_medium"
+             android:letterSpacing="0.1"
+             android:background="@drawable/rectangle_shape"
+             android:backgroundTint="@color/edittext_special_bg_color"
+             android:drawablePadding="8dp"
+             android:gravity="center"
+             android:paddingHorizontal="8dp"
+             android:paddingVertical="4dp"
+             android:text="12:30"
+             android:textColor="@color/normal_text_color"
+             app:drawableStartCompat="@drawable/baseline_access_time_24"
+             app:drawableTint="@color/edittext_special_icon_color" />
 
-    <com.google.android.material.button.MaterialButtonToggleGroup
+     </LinearLayout>
+
+     <LinearLayout
+         android:layout_marginHorizontal="4dp"
+         android:layout_width="match_parent"
+         android:layout_height="0dp"
+         android:layout_weight="0.35"
+
+         android:orientation="horizontal">
+
+     <TextView
+         android:textSize="16sp"
+         android:layout_width="0dp"
+         android:layout_weight="2"
+         android:layout_gravity="center"
+         android:layout_height="wrap_content"
+         android:layout_marginHorizontal="4dp"
+         android:layout_marginVertical="2dp"
+         android:gravity="center_vertical"
+         android:paddingHorizontal="0dp"
+         android:fontFamily="@font/quicksand_medium"
+         android:letterSpacing="0.1"
+         android:paddingVertical="6dp"
+         android:text="Folder"/>
+
+     <com.google.android.material.card.MaterialCardView
+         android:layout_gravity="center_vertical"
+         android:layout_width="0dp"
+         android:layout_weight="4"
+         android:elevation="4dp"
+         android:layout_marginHorizontal="4dp"
+         android:layout_marginVertical="4dp"
+         android:outlineSpotShadowColor="@android:color/transparent"
+         android:background="@drawable/rectangle_shape"
+         android:backgroundTint="@color/card_view_light_bg"
+         android:layout_height="wrap_content">
+         <LinearLayout
+             android:padding="4dp"
+             android:orientation="horizontal"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent">
+             <androidx.constraintlayout.widget.ConstraintLayout
+                 android:layout_gravity="center_vertical"
+                 android:id="@+id/clubSelectedValueViewId"
+                 android:layout_width="0dp"
+                 android:layout_weight="1"
+                 android:layout_height="wrap_content">
+                 <ImageView
+                     android:visibility="gone"
+                     android:layout_marginHorizontal="4dp"
+                     android:padding="4dp"
+                     android:id="@+id/clubIconImageView"
+                     app:layout_constraintTop_toTopOf="parent"
+                     app:layout_constraintBottom_toBottomOf="parent"
+                     app:layout_constraintLeft_toLeftOf="parent"
+                     android:layout_width="32dp"
+                     android:layout_height="32dp"
+                     android:background="@drawable/circle"
+                     android:backgroundTint="@color/purple"
+                     />
+                 <TextView
+                     android:visibility="gone"
+                     android:id="@+id/clubTextValueId1"
+                     android:elevation="8dp"
+                     android:layout_width="0dp"
+                     android:layout_height="wrap_content"
+                     android:fontFamily="@font/quicksand_medium"
+                     android:letterSpacing="0.1"
+                     android:textSize="14sp"
+                     app:layout_constraintTop_toTopOf="parent"
+                     app:layout_constraintRight_toRightOf="parent"
+                     app:layout_constraintLeft_toRightOf="@id/clubIconImageView"
+                     app:layout_constraintBottom_toTopOf="@id/clubTextValueId2"
+                     android:text="Trip to Dubai"
+                     android:gravity="center_vertical"
+                     android:paddingStart="6dp"
+                     android:paddingVertical="4dp"
+                     android:maxLines="1"
+                     android:ellipsize="end"
+                     android:textColor="@color/normal_text_color"
+                     />
+                 <TextView
+                     android:visibility="gone"
+                     android:id="@+id/clubTextValueId2"
+                     android:elevation="8dp"
+                     android:layout_width="0dp"
+                     android:layout_height="wrap_content"
+                     android:fontFamily="@font/quicksand_medium"
+                     android:letterSpacing="0.05"
+                     android:textSize="12sp"
+                     app:layout_constraintBottom_toBottomOf="parent"
+                     app:layout_constraintTop_toBottomOf="@id/clubTextValueId1"
+                     app:layout_constraintRight_toRightOf="parent"
+                     app:layout_constraintLeft_toRightOf="@id/clubIconImageView"
+                     android:text="2025"
+                     android:ellipsize="end"
+                     android:paddingVertical="4dp"
+                     android:paddingStart="6dp"
+                     android:maxLines="1"
+                     android:textColor="@color/normal_text_color"
+                     />
+                 <TextView
+                     android:id="@+id/clubNoneTitleId"
+                     android:layout_width="0dp"
+                     android:layout_height="0dp"
+                     android:fontFamily="@font/quicksand_medium"
+                     android:letterSpacing="0.1"
+                     android:textSize="16sp"
+                     app:layout_constraintTop_toTopOf="parent"
+                     app:layout_constraintRight_toRightOf="parent"
+                     app:layout_constraintLeft_toLeftOf="parent"
+                     app:layout_constraintBottom_toBottomOf="parent"
+                     android:text="None (Optional)"
+                     android:layout_margin="8dp"
+                     android:gravity="center"
+                     android:textColor="@color/normal_text_color"
+                     />
+
+             </androidx.constraintlayout.widget.ConstraintLayout>
+             <ImageView
+                 android:layout_gravity="center_vertical"
+                 android:id="@+id/addClubValueId"
+                 android:layout_width="36dp"
+                 android:layout_height="36dp"
+                 android:padding="4dp"
+                 android:minWidth="24dp"
+                 android:minHeight="24dp"
+                 android:layout_margin="4dp"
+                 android:src="@drawable/baseline_add_24"
+                 android:background="@drawable/circle"
+                 android:backgroundTint="@color/icon_color_secondary"
+                 app:tint="@color/icon_color_primary" />
+             <ImageView
+                 android:visibility="gone"
+                 android:id="@+id/clearClubValueId"
+                 android:layout_width="36dp"
+                 android:layout_height="36dp"
+                 android:padding="4dp"
+                 android:minWidth="24dp"
+                 android:minHeight="24dp"
+                 android:layout_margin="4dp"
+                 android:layout_gravity="center_vertical"
+                 android:src="@drawable/baseline_close_24"
+                 android:background="@drawable/circle"
+                 android:backgroundTint="@color/icon_color_secondary"
+                 app:tint="@color/icon_color_primary" />
+         </LinearLayout>
+     </com.google.android.material.card.MaterialCardView>
+
+     </LinearLayout>
+
+     <com.google.android.material.textfield.TextInputLayout
+         android:id="@+id/expenseDescriptionInputLayout"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_marginHorizontal="8dp"
+         android:padding="0dp"
+         android:hint="Description"
+         app:counterTextColor="@color/normal_text_color">
+
+         <com.google.android.material.textfield.TextInputEditText
+             android:id="@+id/expenseDescriptionEditText"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:drawableStart="@drawable/baseline_edit_note_24"
+             android:drawablePadding="8dp"
+             android:padding="14dp"
+             android:textSize="16sp"
+             android:drawableTint="@color/edittext_icon_color"
+             android:ellipsize="end"
+             android:imeOptions="actionDone"
+             android:lines="1"
+             android:maxLines="1"
+             android:singleLine="true"
+             android:fontFamily="@font/quicksand_medium"
+             android:letterSpacing="0.1"
+             android:textColor="@color/edittext_font_color" />
+
+     </com.google.android.material.textfield.TextInputLayout>
+
+     <com.google.android.material.button.MaterialButtonToggleGroup
         android:id="@+id/submit_toggle_button_groupId"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="right"
         android:layout_marginHorizontal="8dp"
         android:layout_marginBottom="8dp"
-        android:gravity="center">
+        android:gravity="right|center_vertical">
         <com.google.android.material.button.MaterialButton
             android:visibility="gone"
             android:id="@+id/deletePresetInfoId"
@@ -354,17 +582,21 @@
             android:letterSpacing="0.1"
             app:icon="@drawable/baseline_delete_forever_24"
             android:paddingHorizontal="16dp"
+            android:importantForAccessibility="no"
             android:text="Delete" />
         <com.google.android.material.button.MaterialButton
+            android:enabled="false"
             android:id="@+id/savePresetInfoId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:icon="@drawable/baseline_favorite_24"
             android:fontFamily="@font/quicksand_medium"
             android:letterSpacing="0.1"
-            android:paddingHorizontal="16dp"
-            android:text="Favorite" />
+            android:paddingHorizontal="12dp"
+            android:importantForAccessibility="no"
+            android:text="favorite" />
         <com.google.android.material.button.MaterialButton
+
             android:visibility="gone"
             android:id="@+id/deleteExpenseInfoId"
             android:layout_width="wrap_content"
@@ -376,14 +608,15 @@
             android:letterSpacing="0.1"
             android:text="Delete" />
         <com.google.android.material.button.MaterialButton
+            android:enabled="false"
             android:id="@+id/saveExpenseInfoId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/quicksand_medium"
             android:letterSpacing="0.1"
             app:icon="@drawable/baseline_add_24"
-            android:paddingHorizontal="16dp"
-            android:text="Save" />
+            android:paddingHorizontal="12dp"
+            android:text="Save " />
 
     </com.google.android.material.button.MaterialButtonToggleGroup>
 </LinearLayout>

@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -46,10 +47,11 @@ class TransactionAdapter(private val context : Context) :
         private var amountTextView : TextView = view.findViewById(R.id.amountTextView)
         private var categoryTextView : TextView = view.findViewById(R.id.categoryTextView)
         private var transactionTypeTextView : TextView = view.findViewById(R.id.transactionTypeEntryId)
+        private var transferTypeTextView : TextView = view.findViewById(R.id.transferToFromPersonId)
         private var dateTimeTextView : TextView = view.findViewById(R.id.timeOfEntryId)
 
         private fun convertToDateTime(timestamp : Long) : String{
-            val formatter = DateTimeFormatter.ofPattern("dd MMM yyyy, hh:mm a")
+            val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm a")
                 .withZone(ZoneId.systemDefault()) // Use the system's time zone
             return formatter.format(Instant.ofEpochMilli(timestamp))
         }
@@ -68,20 +70,27 @@ class TransactionAdapter(private val context : Context) :
                     putExtra("TRANSACTION_MONTH", expenseInfo.month)
                     putExtra("TRANSACTION_YEAR", expenseInfo.year)
                     putExtra("THIS_IS_TRANSACTION", true)
+                    if (expenseInfo.clubId != null) {
+                        Toast.makeText(context, "ClubId " + expenseInfo.clubId, Toast.LENGTH_SHORT).show()
+                        putExtra("CLUB_ID", expenseInfo.clubId)
+                    }
                 }
                 context.startActivity(intent)
             }
             val amountString = String.format(Locale.getDefault(),"%.0f", expenseInfo.amount)
             amountTextView.text = amountString
             categoryTextView.text = expenseInfo.categoryTitle
+            transferTypeTextView.visibility = View.INVISIBLE
             if (expenseInfo.transactionType == ExpenseType.TRANSFER) {
                 var value : String = ""
-                if (expenseInfo.transferType == TransferType.TO) {
-                    value += "Transfer To " + expenseInfo.transferInfo
+                value += if (expenseInfo.transferType == TransferType.TO) {
+                    "Transfer To"
                 } else {
-                    value += "Transfer From " + expenseInfo.transferInfo
+                    "Transfer From"
                 }
+                transferTypeTextView.text = expenseInfo.transferInfo
                 transactionTypeTextView.text = value
+                transferTypeTextView.visibility = View.VISIBLE
             } else if (expenseInfo.transactionType == ExpenseType.SPEND) {
                 transactionTypeTextView.text = "Spend"
             } else {

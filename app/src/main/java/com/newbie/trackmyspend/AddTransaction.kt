@@ -2,6 +2,8 @@ package com.newbie.trackmyspend
 
 import android.content.Context
 import android.content.Intent
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -18,16 +20,20 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
 import com.newbie.trackmyspend.adapters.CategoryAdapter
+import com.newbie.trackmyspend.adapters.ClubAdapter
 import com.newbie.trackmyspend.database.CategoryInfoViewModel
+import com.newbie.trackmyspend.database.ClubInfoViewModel
 import com.newbie.trackmyspend.database.ExpenseInfoViewModel
 import com.newbie.trackmyspend.database.PresetInfoViewModel
 import com.newbie.trackmyspend.databinding.ActivityAddTransactionBinding
 import com.newbie.trackmyspend.model.CategoryInfo
+import com.newbie.trackmyspend.model.ClubInfo
 import com.newbie.trackmyspend.model.ExpenseInfo
 import com.newbie.trackmyspend.model.PresetInfo
 import kotlinx.coroutines.flow.collectLatest
@@ -43,13 +49,28 @@ class AddTransaction : AppCompatActivity() {
     private lateinit var expenseInfoViewModel: ExpenseInfoViewModel
     private lateinit var categoryInfoViewModel: CategoryInfoViewModel
     private lateinit var presetInfoViewModel: PresetInfoViewModel
+    private lateinit var clubInfoViewModel: ClubInfoViewModel
 
-    private lateinit var categoryAdapter: CategoryAdapter
-    private var currentCategoryPos : Int = -1
-    private var currentCategoryId : Int = -1
-    private var categoriesList: List<CategoryInfo> = emptyList()
+
+    //private var currentCategoryPos : Int = -1
+    //private var currentCategoryId : Int = -1
+
     private var previousExpenseInfo : ExpenseInfo ?= null
     private var previousPresetInfo : PresetInfo ?= null
+
+    private lateinit var categoryAdapter: CategoryAdapter
+    private var categoriesList: List<CategoryInfo> = emptyList()
+    private var temporarySelectedCategoryIndex : Int = -1
+    private var currentSelectedCategoryIndex : Int = -1
+    private var previouslySelectedCategoryIndex : Int = -1
+    private var currentSelectedCategoryTableId : Long = -1
+
+    private lateinit var clubAdapter: ClubAdapter
+    private var clubList : List<ClubInfo> = emptyList()
+    private var temporarySelectedClubIndex : Int = -1
+    private var currentSelectedClubIndex : Int = -1
+    private var previouslySelectedClubIndex : Int = -1
+    private var currentSelectedClubTableId : Long = -1
 
     private var currentYear = -1
     private var currentMonth = -1
@@ -71,9 +92,9 @@ class AddTransaction : AppCompatActivity() {
         expenseInfoViewModel = ViewModelProvider(this)[ExpenseInfoViewModel::class.java]
         categoryInfoViewModel = ViewModelProvider(this)[CategoryInfoViewModel::class.java]
         presetInfoViewModel = ViewModelProvider(this)[PresetInfoViewModel::class.java]
+        clubInfoViewModel = ViewModelProvider(this)[ClubInfoViewModel::class.java]
 
         setActionBar()
-
         retrieveIntentData()
         setPreviousState()
 
@@ -83,9 +104,13 @@ class AddTransaction : AppCompatActivity() {
 
         setInitialDateAndTime()
         setDateAndTimePicker()
-        setRecyclerView()
-        setAddCategoryButton()
+        //setRecyclerView()
         setButtonStates()
+
+        setUpClubButtons()
+        setUpCategoryButtons()
+        createClubRecyclerView()
+        createCategoryRecyclerView()
 
         binding.savePresetInfoId.setOnClickListener {
             val expenseAmount = binding.expenseAmountId.text.trim().toString()
@@ -192,6 +217,10 @@ class AddTransaction : AppCompatActivity() {
                     }
                 }
                 else {
+                    var clubId : Long = -1L
+                    if (it.hasExtra("CLUB_ID")) {
+                        clubId = it.getLongExtra("CLUB_ID", -1L)
+                    }
                     previousPresetInfo = null
                     previousExpenseInfo = ExpenseInfo(
                         it.getLongExtra("TRANSACTION_ID", 0L),
@@ -201,6 +230,7 @@ class AddTransaction : AppCompatActivity() {
                         transferType,
                         transferInfo,
                         description,
+                        if (clubId < 0) null else clubId,
                         datetimeLong,
                         yearValue,
                         monthValue,
@@ -220,8 +250,8 @@ class AddTransaction : AppCompatActivity() {
     }
 
     private fun setActionBar() {
-        binding.presetNameTitle.visibility = View.INVISIBLE
-        binding.dividerTopId.visibility = View.INVISIBLE
+        binding.presetNameTitle.visibility = View.GONE
+        binding.dividerTopId.visibility = View.GONE
 
         setSupportActionBar(binding.toolbarId)
         if (supportActionBar != null) {
@@ -237,10 +267,9 @@ class AddTransaction : AppCompatActivity() {
 
     private fun setPreviousState() {
         if (previousExpenseInfo != null) {
-            //Toast.makeText(this, "let's see ", Toast.LENGTH_SHORT).show()
             supportActionBar?.title = "Update Record"
-            binding.presetNameTitle.visibility = View.INVISIBLE
-            binding.dividerTopId.visibility = View.INVISIBLE
+            binding.presetNameTitle.visibility = View.GONE
+            binding.dividerTopId.visibility = View.GONE
             when(previousExpenseInfo!!.transactionType) {
                 ExpenseType.SPEND -> {
                     expenseType = ExpenseType.SPEND
@@ -266,8 +295,10 @@ class AddTransaction : AppCompatActivity() {
             }
             val amountString : String= String.format(Locale.getDefault(),"%.0f", previousExpenseInfo!!.amount)
             binding.expenseAmountId.setText(amountString)
-            currentCategoryId = previousExpenseInfo!!.category
+            if (previousExpenseInfo!!.amount > 0) binding.saveExpenseInfoId.isEnabled = true
+            currentSelectedCategoryTableId = if (previousExpenseInfo!!.category != null) previousExpenseInfo!!.category.toLong() else -1L
             binding.expenseDescriptionEditText.setText(previousExpenseInfo!!.description.toString())
+            currentSelectedClubTableId = if (previousExpenseInfo!!.clubId == null) -1 else previousExpenseInfo!!.clubId!!
         } else if (previousPresetInfo != null) {
             if (updatePresetFlag) {
                 supportActionBar?.title = "Modify "
@@ -277,8 +308,8 @@ class AddTransaction : AppCompatActivity() {
             } else {
                 supportActionBar?.title = "Add Record"
                 binding.presetNameTitle.text = ""
-                binding.presetNameTitle.visibility = View.INVISIBLE
-                binding.dividerTopId.visibility = View.INVISIBLE
+                binding.presetNameTitle.visibility = View.GONE
+                binding.dividerTopId.visibility = View.GONE
             }
             when(previousPresetInfo!!.transactionType) {
                 ExpenseType.SPEND -> {
@@ -305,7 +336,9 @@ class AddTransaction : AppCompatActivity() {
             }
             val amountString = String.format(Locale.getDefault(),"%.0f", previousPresetInfo!!.amount)
             binding.expenseAmountId.setText(amountString)
-            currentCategoryId = previousPresetInfo!!.category
+            if (previousPresetInfo!!.amount > 0) binding.saveExpenseInfoId.isEnabled = true
+            currentSelectedCategoryTableId = previousPresetInfo!!.category.toLong()
+            currentSelectedClubTableId = -1L
         }
     }
 
@@ -376,7 +409,7 @@ class AddTransaction : AppCompatActivity() {
         }
     }
 
-    private fun setRecyclerView(){
+    /*private fun setRecyclerView(){
         categoryAdapter = CategoryAdapter(
             this@AddTransaction,
             {   selectedPositionId ->
@@ -401,7 +434,7 @@ class AddTransaction : AppCompatActivity() {
             layoutManager = GridLayoutManager(this@AddTransaction, 2, GridLayoutManager.HORIZONTAL, false)
             adapter = this@AddTransaction.categoryAdapter
         }
-    }
+    }*/
 
     private fun setInitialDateAndTime(){
 
@@ -495,7 +528,7 @@ class AddTransaction : AppCompatActivity() {
             return
         }
 
-        val categoryId = if (currentCategoryPos == -1) -1 else categoriesList[currentCategoryPos].id
+        val categoryId = if (currentSelectedCategoryIndex == -1) -1 else categoriesList[currentSelectedCategoryIndex].id
 
         var id : Long = 0L
         if (previousExpenseInfo != null) {
@@ -510,6 +543,7 @@ class AddTransaction : AppCompatActivity() {
             if (expenseType == ExpenseType.TRANSFER) transferType else null,
             transferPerson,
             description,
+            if (currentSelectedClubIndex != -1) clubList[currentSelectedClubIndex].id else null,
             getTimeInMillis(currentYear, currentMonth -1, currentDate, currentHour, currentMinute),
             currentYear,
             currentMonth
@@ -532,14 +566,6 @@ class AddTransaction : AppCompatActivity() {
         return calendar.timeInMillis
     }
 
-    private fun setAddCategoryButton() {
-        binding.addCategoryButtonId.setOnClickListener {
-            // Create an Intent to start SecondActivity
-            val intent = Intent(this, CreateCategory::class.java)
-            startActivity(intent)
-        }
-    }
-
     private fun savePresetInfo(presetTitle : String) : Boolean {
         val expenseAmount = binding.expenseAmountId.text.trim().toString()
         val amount = if (expenseAmount.isEmpty()) 0.0 else expenseAmount.toDouble()
@@ -557,7 +583,7 @@ class AddTransaction : AppCompatActivity() {
             return false
         }
 
-        val categoryId = if (currentCategoryPos == -1) -1 else categoriesList[currentCategoryPos.toInt()].id
+        val categoryId = if (currentSelectedCategoryIndex == -1) -1 else categoriesList[currentSelectedCategoryIndex.toInt()].id
 
         val presetInfo : PresetInfo?
         if (previousPresetInfo == null) {
@@ -622,7 +648,7 @@ class AddTransaction : AppCompatActivity() {
         }
 
         dialogView.findViewById<TextView>(R.id.transactionAmountValueId).text = binding.expenseAmountId.text
-        dialogView.findViewById<TextView>(R.id.transactionCategoryValueId).text = if (currentCategoryPos >= 0) categoriesList[currentCategoryPos].title else "-"
+        dialogView.findViewById<TextView>(R.id.transactionCategoryValueId).text = if (currentSelectedCategoryIndex >= 0) categoriesList[currentSelectedCategoryIndex].title else "-"
 
         val dialog = AlertDialog.Builder(context)
             .setView(dialogView)
@@ -660,5 +686,264 @@ class AddTransaction : AppCompatActivity() {
             Toast.makeText(this, "Record Deleted 🔥🔥", Toast.LENGTH_SHORT).show()
             finish()
         }
+    }
+
+    private fun setUpClubButtons(){
+        binding.addClubValueId.setOnClickListener {
+            // Create an Intent to start SecondActivity
+            val intent = Intent(this, CreateClub::class.java)
+            startActivity(intent)
+        }
+        binding.clubSelectedValueViewId.setOnClickListener {
+            setClubDisplayDialog(this@AddTransaction)
+        }
+        binding.clearClubValueId.setOnClickListener {
+            currentSelectedClubIndex = -1
+            previouslySelectedClubIndex = -1
+            binding.clubTextValueId2.visibility = View.INVISIBLE
+            binding.clubTextValueId1.visibility = View.INVISIBLE
+            binding.clubIconImageView.visibility = View.INVISIBLE
+            binding.clubNoneTitleId.visibility = View.VISIBLE
+            binding.clearClubValueId.visibility = View.GONE
+            binding.addClubValueId.visibility = View.VISIBLE
+        }
+    }
+
+    private fun setClubDisplayDialog(context: Context) {
+        val dialogView = LayoutInflater.from(context).inflate(R.layout.club_selector_dialog, null)
+        val clubRecyclerView : RecyclerView = dialogView.findViewById<RecyclerView>(R.id.clubRecyclerViewId)
+
+        clubRecyclerView.apply {
+            setHasFixedSize(true)
+            layoutManager = GridLayoutManager(this@AddTransaction, 1, GridLayoutManager.VERTICAL, false)
+            adapter = this@AddTransaction.clubAdapter
+            clubAdapter.setSelectedIndex(currentSelectedClubIndex)
+        }
+
+        val dialog = AlertDialog.Builder(context)
+            .setView(dialogView)
+            .setCancelable(false)
+            .create()
+        dialogView.findViewById<TextView>(R.id.selectClubSelectionId).setOnClickListener {
+            if (temporarySelectedClubIndex == -1) {
+                currentSelectedClubIndex = temporarySelectedClubIndex
+                previouslySelectedClubIndex = temporarySelectedClubIndex
+                binding.clubTextValueId2.visibility = View.INVISIBLE
+                binding.clubTextValueId1.visibility = View.INVISIBLE
+                binding.clubIconImageView.visibility = View.INVISIBLE
+                binding.clubNoneTitleId.visibility = View.VISIBLE
+                binding.clearClubValueId.visibility = View.GONE
+                binding.addClubValueId.visibility = View.VISIBLE
+            } else {
+                previouslySelectedClubIndex = temporarySelectedClubIndex
+                currentSelectedClubIndex = temporarySelectedClubIndex
+                binding.clubIconImageView.backgroundTintList = ColorStateList.valueOf(Color.parseColor(clubList[currentSelectedClubIndex].hexColorCode))
+                binding.clubTextValueId1.text = clubList[currentSelectedClubIndex].title
+                binding.clubTextValueId2.text = if (clubList[currentSelectedClubIndex].subtitle != null) clubList[currentSelectedClubIndex].subtitle else "----"
+                //binding.clubSelectedValueViewId.visibility = View.VISIBLE
+                binding.clubTextValueId2.visibility = if (clubList[currentSelectedClubIndex].subtitle != null) View.VISIBLE else View.GONE
+                binding.clubTextValueId1.visibility = View.VISIBLE
+                binding.clubIconImageView.visibility = View.VISIBLE
+                binding.clubNoneTitleId.visibility = View.INVISIBLE
+                binding.clearClubValueId.visibility = View.VISIBLE
+                binding.addClubValueId.visibility = View.GONE
+            }
+            dialog.dismiss()
+        }
+        dialogView.findViewById<TextView>(R.id.cancelClubSelectionId).setOnClickListener {
+            currentSelectedClubIndex = previouslySelectedClubIndex
+            temporarySelectedClubIndex = previouslySelectedClubIndex
+            if (temporarySelectedClubIndex == -1) {
+                binding.clubTextValueId2.visibility = View.INVISIBLE
+                binding.clubTextValueId1.visibility = View.INVISIBLE
+                binding.clubIconImageView.visibility = View.INVISIBLE
+                binding.clubNoneTitleId.visibility = View.VISIBLE
+                binding.clearClubValueId.visibility = View.GONE
+                binding.addClubValueId.visibility = View.VISIBLE
+            } else {
+                binding.clubIconImageView.backgroundTintList = ColorStateList.valueOf(Color.parseColor(clubList[currentSelectedClubIndex].hexColorCode))
+                binding.clubTextValueId1.text = clubList[currentSelectedClubIndex].title
+                binding.clubTextValueId2.visibility = View.VISIBLE
+                binding.clubTextValueId1.visibility = View.VISIBLE
+                binding.clubIconImageView.visibility = View.VISIBLE
+                binding.clubNoneTitleId.visibility = View.INVISIBLE
+                binding.clearClubValueId.visibility = View.VISIBLE
+                binding.addClubValueId.visibility = View.GONE
+            }
+            dialog.dismiss()
+        }
+        dialog.show()
+    }
+
+    private fun createClubRecyclerView() {
+        clubAdapter = ClubAdapter(
+            this@AddTransaction,
+            {   selectedPositionId ->
+                //Toast.makeText(this, "selected category = " + categories[selectedPosition], Toast.LENGTH_SHORT).show()
+                temporarySelectedClubIndex = selectedPositionId //categoriesList[selectedPositionId].id
+            },
+            -1)
+        lifecycleScope.launch {
+            clubInfoViewModel.allClubs.collectLatest { clubs ->
+                //Log.i("clubs", clubs.toString())
+                val selectedIndex = clubs.indexOfFirst { it.id == currentSelectedClubTableId }
+                //Log.i("Pocket chnage", "currentSelected  = " + currentSelectedClubTableId)
+                //Log.i("chekc ohh AOT" , "selectedIndex = " + selectedIndex + ", previouslyselectedindex = " + previouslySelectedClubIndex)
+                clubAdapter.setSelectedIndex(selectedIndex)
+                currentSelectedClubIndex = selectedIndex
+                previouslySelectedClubIndex = selectedIndex
+                temporarySelectedClubIndex = selectedIndex
+                clubList = clubs
+
+                if (temporarySelectedClubIndex == -1) {
+                    binding.clubTextValueId2.visibility = View.INVISIBLE
+                    binding.clubTextValueId1.visibility = View.INVISIBLE
+                    binding.clubIconImageView.visibility = View.INVISIBLE
+                    binding.clubNoneTitleId.visibility = View.VISIBLE
+                    binding.clearClubValueId.visibility = View.GONE
+                    binding.addClubValueId.visibility = View.VISIBLE
+                } else {
+                    binding.clubIconImageView.backgroundTintList = ColorStateList.valueOf(Color.parseColor(clubList[currentSelectedClubIndex].hexColorCode))
+                    binding.clubTextValueId1.text = clubList[currentSelectedClubIndex].title
+                    binding.clubTextValueId2.text = if (clubList[currentSelectedClubIndex].subtitle != null) clubList[currentSelectedClubIndex].subtitle else ""
+                    binding.clubTextValueId2.visibility = View.VISIBLE
+                    binding.clubTextValueId1.visibility = View.VISIBLE
+                    binding.clubIconImageView.visibility = View.VISIBLE
+                    binding.clubNoneTitleId.visibility = View.INVISIBLE
+                    binding.clearClubValueId.visibility = View.VISIBLE
+                    binding.addClubValueId.visibility = View.GONE
+                }
+
+                clubAdapter.submitList(clubList)
+            }
+        }
+
+    }
+
+    private fun setUpCategoryButtons() {
+        binding.addCategoryButtonId.setOnClickListener {
+            // Create an Intent to start SecondActivity
+            val intent = Intent(this, CreateCategory::class.java)
+            startActivity(intent)
+        }
+        binding.categorySelectedValueViewId.setOnClickListener {
+            setCategoryDisplayDialog(this@AddTransaction)
+        }
+        binding.clearCategoryButtonId.setOnClickListener {
+            currentSelectedCategoryIndex = -1
+            previouslySelectedCategoryIndex = -1
+            binding.categoryTitleValueId.visibility = View.INVISIBLE
+            binding.categoryIconImageView.visibility = View.INVISIBLE
+            binding.categoryNoneId.visibility = View.VISIBLE
+            binding.clearCategoryButtonId.visibility = View.GONE
+            binding.addCategoryButtonId.visibility = View.VISIBLE
+        }
+    }
+
+    private fun setCategoryDisplayDialog(context: Context) {
+        val dialogView = LayoutInflater.from(context).inflate(R.layout.club_selector_dialog, null)
+        val clubRecyclerView : RecyclerView = dialogView.findViewById<RecyclerView>(R.id.clubRecyclerViewId)
+        val dialogViewTitleView : TextView = dialogView.findViewById(R.id.clubDialogTitleId)
+        dialogViewTitleView.text = "Pick a Category"
+
+        clubRecyclerView.apply {
+            setHasFixedSize(true)
+            layoutManager = GridLayoutManager(this@AddTransaction, 1, GridLayoutManager.VERTICAL, false)
+            adapter = this@AddTransaction.categoryAdapter
+            categoryAdapter.setSelectedIndex(currentSelectedCategoryIndex)
+        }
+
+        val dialog = AlertDialog.Builder(context)
+            .setView(dialogView)
+            .setCancelable(false)
+            .create()
+        dialogView.findViewById<TextView>(R.id.selectClubSelectionId).setOnClickListener {
+            if (temporarySelectedCategoryIndex == -1) {
+                currentSelectedCategoryIndex = temporarySelectedCategoryIndex
+                previouslySelectedCategoryIndex = temporarySelectedCategoryIndex
+
+                binding.categoryTitleValueId.visibility = View.INVISIBLE
+                binding.categoryIconImageView.visibility = View.INVISIBLE
+                binding.categoryNoneId.visibility = View.VISIBLE
+                binding.clearCategoryButtonId.visibility = View.GONE
+                binding.addCategoryButtonId.visibility = View.VISIBLE
+            } else {
+                previouslySelectedCategoryIndex = temporarySelectedCategoryIndex
+                currentSelectedCategoryIndex = temporarySelectedCategoryIndex
+                binding.categoryIconImageView.backgroundTintList = ColorStateList.valueOf(Color.parseColor(categoriesList[currentSelectedCategoryIndex].hexColorCode))
+                binding.categoryTitleValueId.text = categoriesList[currentSelectedCategoryIndex].title
+                //binding.clubTextValueId2.text = if (clubList[currentSelectedClubIndex].subtitle != null) clubList[currentSelectedClubIndex].subtitle else ""
+                //binding.clubSelectedValueViewId.visibility = View.VISIBLE
+                //binding.clubTextValueId2.visibility = View.VISIBLE
+                binding.categoryTitleValueId.visibility = View.VISIBLE
+                binding.categoryIconImageView.visibility = View.VISIBLE
+                binding.categoryNoneId.visibility = View.INVISIBLE
+                binding.clearCategoryButtonId.visibility = View.VISIBLE
+                binding.addCategoryButtonId.visibility = View.GONE
+            }
+            dialog.dismiss()
+        }
+        dialogView.findViewById<TextView>(R.id.cancelClubSelectionId).setOnClickListener {
+            currentSelectedCategoryIndex = previouslySelectedCategoryIndex
+            temporarySelectedCategoryIndex = previouslySelectedCategoryIndex
+            if (temporarySelectedCategoryIndex == -1) {
+                binding.categoryTitleValueId.visibility = View.INVISIBLE
+                binding.categoryIconImageView.visibility = View.INVISIBLE
+                binding.categoryNoneId.visibility = View.VISIBLE
+                binding.clearCategoryButtonId.visibility = View.GONE
+                binding.addCategoryButtonId.visibility = View.VISIBLE
+            } else {
+                binding.categoryIconImageView.backgroundTintList = ColorStateList.valueOf(Color.parseColor(categoriesList[currentSelectedCategoryIndex].hexColorCode))
+                binding.categoryTitleValueId.text = categoriesList[currentSelectedCategoryIndex].title
+                binding.categoryTitleValueId.visibility = View.VISIBLE
+                binding.categoryIconImageView.visibility = View.VISIBLE
+                binding.categoryNoneId.visibility = View.INVISIBLE
+                binding.clearCategoryButtonId.visibility = View.VISIBLE
+                binding.addCategoryButtonId.visibility = View.GONE
+            }
+            dialog.dismiss()
+        }
+        dialog.show()
+    }
+
+    private fun createCategoryRecyclerView() {
+        categoryAdapter = CategoryAdapter(
+            this@AddTransaction,
+            {   selectedPositionId ->
+                //Toast.makeText(this, "selected category = " + categories[selectedPosition], Toast.LENGTH_SHORT).show()
+                temporarySelectedCategoryIndex = selectedPositionId //categoriesList[selectedPositionId].id
+            },
+            -1)
+        lifecycleScope.launch {
+            categoryInfoViewModel.allCategory.collectLatest { category ->
+                //Log.i("clubs", clubs.toString())
+                val selectedIndex = category.indexOfFirst { it.id == currentSelectedCategoryTableId.toInt() }
+                //Log.i("Pocket chnage", "currentSelected  = " + currentSelectedClubTableId)
+                //Log.i("chekc ohh AOT" , "selectedIndex = " + selectedIndex + ", previouslyselectedindex = " + previouslySelectedClubIndex)
+                categoryAdapter.setSelectedIndex(selectedIndex)
+                currentSelectedCategoryIndex = selectedIndex
+                previouslySelectedCategoryIndex = selectedIndex
+                temporarySelectedCategoryIndex = selectedIndex
+                categoriesList = category
+
+                if (temporarySelectedCategoryIndex == -1) {
+                    binding.categoryTitleValueId.visibility = View.INVISIBLE
+                    binding.categoryIconImageView.visibility = View.INVISIBLE
+                    binding.categoryNoneId.visibility = View.VISIBLE
+                    binding.clearCategoryButtonId.visibility = View.GONE
+                    binding.addCategoryButtonId.visibility = View.VISIBLE
+                } else {
+                    binding.categoryIconImageView.backgroundTintList = ColorStateList.valueOf(Color.parseColor(categoriesList[currentSelectedCategoryIndex].hexColorCode))
+                    binding.categoryTitleValueId.text = categoriesList[currentSelectedCategoryIndex].title
+                    binding.categoryTitleValueId.visibility = View.VISIBLE
+                    binding.categoryIconImageView.visibility = View.VISIBLE
+                    binding.categoryNoneId.visibility = View.INVISIBLE
+                    binding.clearCategoryButtonId.visibility = View.VISIBLE
+                    binding.addCategoryButtonId.visibility = View.GONE
+                }
+                categoryAdapter.submitList(categoriesList)
+            }
+        }
+
     }
 }

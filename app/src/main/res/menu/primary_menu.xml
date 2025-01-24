@@ -8,7 +8,13 @@
     <item android:title="Manage Categories"
         android:id="@+id/all_category_list_menu"
         app:showAsAction="never" />
-    <item android:title="Set Preferences"
+    <item android:id="@+id/all_clubs_list_menu"
+        android:title="Manage Folders"
+        app:showAsAction="never" />
+    <item android:title="Preferences"
         android:id="@+id/target_menu"
         app:showAsAction="never" />
+    <item android:id="@+id/onboarding_view_id"
+        android:title="Quick Introduction"
+        app:showAsAction="never"/>
 </menu>

@@ -31,6 +31,10 @@ class ExpenseInfoRepository(private val expenseInfoDao: ExpenseInfoDao) {
     fun getAllTransactionsForMonthForParticularCategory(year : Int, month : Int, categoryId : Int, transactionType: ExpenseType): Flow<List<TransactionExpenseInfo>> =
         expenseInfoDao.getAllTransactionForParticularCategory(year, month, categoryId, transactionType)
 
+    fun getAllTransactionForParticularClub(clubId : Long) : Flow<List<TransactionExpenseInfo>> =
+        expenseInfoDao.getAllTransactionForParticularClub(clubId)
+
+
     // Delete all expenses
     suspend fun clearAllExpenses() = expenseInfoDao.deleteAllExpenses()
 

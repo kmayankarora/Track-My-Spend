@@ -51,6 +51,7 @@
             android:layout_margin="4dp"
             android:hint="Expense Target (Expected)"
             android:paddingHorizontal="4dp"
+            app:endIconMode="none"
             android:paddingVertical="2dp">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -66,11 +67,20 @@
                 android:inputType="number"
                 android:imeOptions="actionDone"
                 android:lines="1"
-                android:text="10000"
+                android:text="20000"
                 android:maxLines="1"
                 android:singleLine="true"
                 android:maxLength="8"
                 android:textColor="@color/edittext_font_color" />
+            <TextView
+                android:id="@+id/unitTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|center_vertical"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:text="Per Month"
+                android:textColor="@color/normal_text_color" />
 
         </com.google.android.material.textfield.TextInputLayout>
         <com.google.android.material.textfield.TextInputLayout
@@ -95,10 +105,18 @@
                 android:imeOptions="actionDone"
                 android:lines="1"
                 android:maxLength="8"
-                android:text="10000"
+                android:text="20000"
                 android:maxLines="1"
                 android:singleLine="true"
                 android:textColor="@color/edittext_font_color" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|center_vertical"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:text="Per Month"
+                android:textColor="@color/normal_text_color" />
 
         </com.google.android.material.textfield.TextInputLayout>
 

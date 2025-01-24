@@ -4,13 +4,15 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.newbie.trackmyspend.model.CategoryInfo
 import com.newbie.trackmyspend.model.CategoryInfoDao
+import com.newbie.trackmyspend.model.ClubInfo
+import com.newbie.trackmyspend.model.ClubInfoDao
 import com.newbie.trackmyspend.model.ExpenseInfo
 import com.newbie.trackmyspend.model.ExpenseInfoDao
 import com.newbie.trackmyspend.model.PresetInfo
 import com.newbie.trackmyspend.model.PresetInfoDao
 
 @Database(
-    entities = [ExpenseInfo::class, CategoryInfo::class, PresetInfo::class],
+    entities = [ExpenseInfo::class, CategoryInfo::class, PresetInfo::class, ClubInfo::class],
     version = 1
 )
 abstract class ExpenseTransactionDatabase : RoomDatabase() {
@@ -20,4 +22,5 @@ abstract class ExpenseTransactionDatabase : RoomDatabase() {
     abstract val dao: ExpenseInfoDao
     abstract val categoryDao : CategoryInfoDao
     abstract val presetInfoDao : PresetInfoDao
+    abstract val clubInfoDao : ClubInfoDao
 }

@@ -13,6 +13,21 @@
         android:theme="@style/Theme.TrackMySpend"
         tools:targetApi="31">
         <activity
+            android:name=".Onboarding"
+            android:exported="false" />
+        <activity
+            android:name=".DisplayParticularClubTransactions"
+            android:exported="false" />
+        <activity
+            android:name=".DisplayAllClubsInfo"
+            android:exported="false" />
+        <activity
+            android:name=".ManageClubs"
+            android:exported="false" />
+        <activity
+            android:name=".CreateClub"
+            android:exported="false" />
+        <activity
             android:name=".GraphRecords"
             android:exported="false" />
         <activity

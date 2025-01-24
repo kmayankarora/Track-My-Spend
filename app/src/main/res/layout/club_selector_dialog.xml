@@ -5,26 +5,30 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:background="@color/card_view_light_bg"
     android:padding="16dp">
 
     <TextView
-        android:id="@+id/tvTitle"
+        android:id="@+id/clubDialogTitleId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Pick a Color"
-        android:textSize="24sp"
-        android:fontFamily="@font/quicksand_medium"
         android:layout_gravity="left"
-        android:paddingBottom="8dp"/>
+        android:fontFamily="@font/quicksand_medium"
+        android:paddingBottom="8dp"
+        android:text="Pick a Folder"
+        android:textSize="24sp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_gravity="center"
-        android:id="@+id/rvColors"
+        android:id="@+id/clubRecyclerViewId"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:clipToPadding="false"
-        android:padding="8dp"
+        android:paddingHorizontal="1dp"
+        android:paddingTop="1dp"
+        android:paddingBottom="8dp"
+        android:background="@drawable/unfilled_rectangle"
         android:scrollbars="none" />
     <LinearLayout
         android:layout_width="match_parent"
@@ -35,7 +39,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"/>
         <TextView
-            android:id="@+id/cancelColorSelectionId"
+            android:id="@+id/cancelClubSelectionId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Cancel"
@@ -47,7 +51,7 @@
             android:layout_marginEnd="8dp" />
 
         <TextView
-            android:id="@+id/selectColorSelectionId"
+            android:id="@+id/selectClubSelectionId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Select"

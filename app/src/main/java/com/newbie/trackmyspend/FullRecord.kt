@@ -80,6 +80,10 @@ class FullRecord : AppCompatActivity() {
             currentMonth = binding.monthNumberPickerId.value
             currentYear = binding.yearNumberPickerId.value
             binding.monthYearDisplayId.text = String.format(Locale.getDefault(), "%s, %4d", months[currentMonth], currentYear) //"Selected Date: $selectedMonth $selectedYear"
+            val monthYear = String.format(Locale.getDefault(), "%02d/%4d", currentMonth + 1, currentYear)
+            binding.monthIndicatorText1.text = monthYear
+            binding.monthIndicatorText2.text = monthYear
+            binding.monthIndicatorText3.text = monthYear
         }
         binding.monthNumberPickerId.setOnValueChangedListener { _, _, _ -> updateDate() }
         binding.yearNumberPickerId.setOnValueChangedListener { _, _, _ -> updateDate() }
@@ -88,6 +92,11 @@ class FullRecord : AppCompatActivity() {
     }
 
     private fun setupArrowButtons() {
+        binding.clubDetailsInfo.setOnClickListener {
+            val intent = Intent(this, DisplayAllClubsInfo::class.java)
+            startActivity(intent)
+        }
+
         binding.allRecordId.setOnClickListener {
             val intent = Intent(this, AllTransactionList::class.java)
             intent.putExtra("CurrentYear", currentYear)

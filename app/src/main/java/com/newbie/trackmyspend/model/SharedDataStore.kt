@@ -43,7 +43,7 @@ class SharedDataStore private constructor(private val dataStore: DataStore<Prefe
 
     // Retrieve target monthly expense as Flow
     val targetMonthlyExpenseFlow: Flow<Double> = dataStore.data.map { preferences ->
-        preferences[TARGET_MONTHLY_EXPENSE_KEY] ?: 10000.0 // Default value is 10000
+        preferences[TARGET_MONTHLY_EXPENSE_KEY] ?: 20000.0 // Default value is 10000
     }
 
     // Save target monthly earning
@@ -55,7 +55,7 @@ class SharedDataStore private constructor(private val dataStore: DataStore<Prefe
 
     // Retrieve target monthly earning as Flow
     val targetMonthlyEarningFlow: Flow<Double> = dataStore.data.map { preferences ->
-        preferences[TARGET_MONTHLY_EARNING_KEY] ?: 10000.0 // Default value is 10000
+        preferences[TARGET_MONTHLY_EARNING_KEY] ?: 20000.0 // Default value is 10000
     }
 
     suspend fun setShowEarningInReportCardStatus(value: Boolean) {
@@ -66,7 +66,7 @@ class SharedDataStore private constructor(private val dataStore: DataStore<Prefe
 
     // Retrieve target monthly earning as Flow
     val getShowEarningInReportCardStatus: Flow<Boolean> = dataStore.data.map { preferences ->
-        preferences[SHOW_EARNING_IN_REPORTCARD] ?: false // Default value is 10000
+        preferences[SHOW_EARNING_IN_REPORTCARD] ?: true // Default value is 10000
     }
 
     suspend fun setShowTransferFromInReportCardStatus(value: Boolean) {
@@ -77,7 +77,7 @@ class SharedDataStore private constructor(private val dataStore: DataStore<Prefe
 
     // Retrieve target monthly earning as Flow
     val getShowTransferFromInReportCardStatus: Flow<Boolean> = dataStore.data.map { preferences ->
-        preferences[SHOW_TRANSFER_FROM_IN_REPORTCARD] ?: false // Default value is 10000
+        preferences[SHOW_TRANSFER_FROM_IN_REPORTCARD] ?: true // Default value is 10000
     }
 
 

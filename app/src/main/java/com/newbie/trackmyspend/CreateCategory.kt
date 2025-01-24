@@ -137,12 +137,6 @@ class CreateCategory : AppCompatActivity() {
         finish()
     }
 
-    fun isValidSixLetterHexColor(hexColor: String): Boolean {
-        // Regular expression to match valid 6-character hex color codes
-        val hexColorRegex = Regex("^#[0-9a-fA-F]{6}$")
-        return hexColorRegex.matches(hexColor)
-    }
-
     private fun showCustomColorDialog(
         context: Context,
         preselectedColorIndex: Int? = null,

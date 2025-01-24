@@ -18,6 +18,7 @@ data class ExpenseInfo(
     val transferType : TransferType ?= null,
     val transferInfo : String = "",
     val description: String = "",
+    val clubId : Long ?= null,
     val dateTime: Long,
     val year: Int,
     val month: Int
@@ -45,6 +46,7 @@ data class TransactionExpenseInfo(
     val transferType : TransferType ?= null,
     val transferInfo : String = "",
     val description: String = "",
+    val clubId: Long? = null,
     val dateTime: Long,
     val year: Int,
     val month: Int,

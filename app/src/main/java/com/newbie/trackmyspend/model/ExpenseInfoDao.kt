@@ -95,6 +95,7 @@ interface ExpenseInfoDao {
             e.transferType,
             e.transferInfo,
             e.description,
+            e.clubId,
             e.dateTime,
             e.year,
             e.month,
@@ -165,6 +166,7 @@ interface ExpenseInfoDao {
         e.transferType,
         e.transferInfo,
         e.description,
+        e.clubId,
         e.dateTime,
         e.year,
         e.month,
@@ -186,6 +188,28 @@ interface ExpenseInfoDao {
     fun getAllTransactionForParticularCategory(year: Int, month: Int, categoryId : Int, transactionType: ExpenseType): Flow<List<TransactionExpenseInfo>>
 
 
+    @Query("""
+       SELECT 
+        e.id AS id,
+        e.transactionType AS transactionType,
+        e.amount AS amount,
+        e.category AS category,
+        e.transferType,
+        e.transferInfo,
+        e.description,
+        e.clubId,
+        e.dateTime,
+        e.year,
+        e.month,
+        COALESCE(cat.hexColorCode, "#000000") AS categoryHexColorCode,
+        COALESCE(cat.title, "Others") AS categoryTitle
+    FROM club_info c
+    INNER JOIN expenses e ON e.clubId ==  c.id
+    LEFT JOIN category cat ON e.category = cat.id   
+    WHERE c.id = :clubId
+    ORDER BY e.id
+    """)
+    fun getAllTransactionForParticularClub(clubId : Long) : Flow<List<TransactionExpenseInfo>>
 
     // Delete a specific expense
     @Delete

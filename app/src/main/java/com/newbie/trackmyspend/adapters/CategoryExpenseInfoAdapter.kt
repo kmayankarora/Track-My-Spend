@@ -113,7 +113,8 @@ class CategoryExpenseInfoAdapter(
             categoryAmount2.text = totalExpenseAmtString
             categoryColor.imageTintList = ColorStateList.valueOf(Color.parseColor(expense.categoryHexColorCode))
             monthlyLimit.text = if (expense.categoryMonthlyLimit != 0.0) String.format(Locale.getDefault(), "%.0f", expense.categoryMonthlyLimit.toBigDecimal()) else "Inf"
-            val percent : Double = if (expense.categoryMonthlyLimit != 0.0) (1.0 * expense.totalAmount / expense.categoryMonthlyLimit * 100) else 100.0
+            var percent : Double = if (expense.categoryMonthlyLimit != 0.0) (1.0 * expense.totalAmount / expense.categoryMonthlyLimit * 100) else 100.0
+            percent = if (percent > 100) 100.0 else percent
             categoryProgress.progress = (percent).toInt()
             //val colorWithAlpha = ColorUtils.setAlphaComponent(color, (1.0 * percent /100 * 255).toInt())
             //categoryProgress.progressTintList = ColorStateList.valueOf(colorWithAlpha)
@@ -122,7 +123,7 @@ class CategoryExpenseInfoAdapter(
             factorValue.imageTintList = ColorStateList.valueOf(getGreenToYellowToRedColor((1.0f * percent / 100).toFloat()))
 
             itemView.setOnClickListener {
-                //Toast.makeText(context, "percentage " + percent, Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "percentage " + percent, Toast.LENGTH_SHORT).show()
                 val intent = Intent(context, AllTransactionCategoryWise::class.java).apply {
                     // Pass the product info to CreateProductItem activity via intent extras
                     putExtra("TRANSACTION_TYPE", getTransactionType().name)

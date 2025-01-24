@@ -33,6 +33,7 @@ import com.newbie.trackmyspend.model.SharedDataStore
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.plus
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
@@ -158,12 +159,14 @@ class MainActivity : AppCompatActivity() {
 
                     val finalSumAmtString = String.format(Locale.getDefault(),"%.0f", abs(finalAmt))
                     binding.finalSumValueId.text = finalSumAmtString
-                    binding.finalSumValueId.setCompoundDrawablesRelativeWithIntrinsicBounds(
-                        if (finalAmt > 0) plus_drawable else minus_drawable,
-                        null,
-                        null,
-                        null
-                    )
+                    binding.finalSumSignId.setImageResource(if (finalAmt > 0) R.drawable.baseline_add_24 else R.drawable.baseline_remove_24)
+//                    binding.finalSumValueId.setCompoundDrawablesRelativeWithIntrinsicBounds(
+//                        if (finalAmt > 0) plus_drawable else minus_drawable,
+//                        null,
+//                        null,
+//                        null
+//                    )
+
                 }.collect{ }
             }
         }
@@ -190,6 +193,18 @@ class MainActivity : AppCompatActivity() {
             }
             R.id.manage_preset_list_menu -> {
                 val intent = Intent(this, ManagePresets::class.java)
+                //val intent = Intent(this, FullRecord::class.java)
+                startActivity(intent)
+                true
+            }
+            R.id.all_clubs_list_menu -> {
+                val intent = Intent(this, ManageClubs::class.java)
+                //val intent = Intent(this, FullRecord::class.java)
+                startActivity(intent)
+                true
+            }
+            R.id.onboarding_view_id -> {
+                val intent = Intent(this, Onboarding::class.java)
                 //val intent = Intent(this, FullRecord::class.java)
                 startActivity(intent)
                 true

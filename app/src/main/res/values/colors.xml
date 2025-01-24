@@ -35,12 +35,13 @@
 
     <!--Icon Colors-->
     <color name="icon_color_primary">#000</color>
+    <color name="icon_color_secondary">#ccc</color>
     <color name="icon_color_for_dark_bg">#333</color>
     <color name="button_icon_color">#ddd</color>
 
     <!--CardView colors-->
     <color name="card_view_dark_bg">#fff</color>
-    <color name="card_view_light_bg">#ccc</color>
+    <color name="card_view_light_bg">#ddd</color>
     <color name="card_view_normal_bg">#ccc</color>
     <color name="card_view_font_color">#222222</color>
 

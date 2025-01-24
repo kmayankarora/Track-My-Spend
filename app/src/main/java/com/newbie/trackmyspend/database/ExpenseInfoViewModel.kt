@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.newbie.trackmyspend.ExpenseType
 import com.newbie.trackmyspend.model.CategoryExpenseInfo
 import com.newbie.trackmyspend.model.ExpenseInfo
+import com.newbie.trackmyspend.model.TransactionExpenseInfo
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
@@ -52,4 +53,9 @@ class ExpenseInfoViewModel(application: Application) : AndroidViewModel(applicat
 
     fun getAllTransactionsForParticularCategory(year: Int, month: Int, categoryId : Int, transactionType: ExpenseType)
         = expenseRepository.getAllTransactionsForMonthForParticularCategory(year, month, categoryId, transactionType)
+
+    fun getAllTransactionForParticularClub(clubId : Long) : Flow<List<TransactionExpenseInfo>> =
+        expenseRepository.getAllTransactionForParticularClub(clubId)
+
+
 }

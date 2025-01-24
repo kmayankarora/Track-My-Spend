@@ -6,16 +6,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".ManagePresets">
-
+    tools:context=".DisplayParticularClubTransactions">
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbarId"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/window_appbar_bg_color"
+        android:gravity="center_vertical"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:gravity="center_vertical"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_scrollFlags="scroll|enterAlways|snap">
 
         <com.google.android.material.appbar.MaterialToolbar
@@ -26,38 +26,25 @@
             android:elevation="0dp"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-            app:title="Favorites"
+            app:title="Folder (Particular)"
             app:titleCentered="true"
+            app:subtitleCentered="true"
+            app:subtitleTextColor="@color/purple"
             app:titleTextAppearance="@style/CustomToolbarTitle"
             app:titleTextColor="@color/title_font_color" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:visibility="gone"
         android:layout_margin="2dp"
-        android:id="@+id/presetRecyclerViewId"
-        android:layout_width="0dp"
+        android:id="@+id/all_club_list_rv_id"
+        android:layout_marginHorizontal="1dp"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/appbarId"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/appbarId"
-        app:layout_constraintBottom_toBottomOf="parent"/>
-
-    <TextView
-        android:visibility="gone"
-        android:id="@+id/messageId"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="No Saved Favorites.\n\n 1. Go to Home \n2. Click on Plus Button 😊"
-        android:textSize="16sp"
-        android:fontFamily="@font/quicksand_medium"
-        android:letterSpacing="0.1"
-        android:padding="8dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/appbarId"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
